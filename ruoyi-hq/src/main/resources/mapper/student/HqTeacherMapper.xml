@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hq.mapper.HqTeacherMapper">
+    
+    <resultMap type="HqTeacher" id="HqTeacherResult">
+        <result property="teacherId"    column="teacher_id"    />
+        <result property="teacherName"    column="teacher_name"    />
+        <result property="teachingLength"    column="teaching_length"    />
+        <result property="teacherPhone"    column="teacher_phone"    />
+        <result property="teacherEmail"    column="teacher_email"    />
+        <result property="skilledCourse"    column="skilled_course"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectHqTeacherVo">
+        select teacher_id, teacher_name, teaching_length, teacher_phone, teacher_email, skilled_course, create_by, create_time, update_by, update_time, remark from hq_teacher
+    </sql>
+
+    <select id="selectHqTeacherList" parameterType="HqTeacher" resultMap="HqTeacherResult">
+        <include refid="selectHqTeacherVo"/>
+        <where>  
+            <if test="teacherName != null  and teacherName != ''"> and teacher_name like concat('%', #{teacherName}, '%')</if>
+            <if test="teachingLength != null "> and teaching_length = #{teachingLength}</if>
+            <if test="teacherPhone != null "> and teacher_phone = #{teacherPhone}</if>
+            <if test="teacherEmail != null  and teacherEmail != ''"> and teacher_email = #{teacherEmail}</if>
+            <if test="skilledCourse != null  and skilledCourse != ''"> and skilled_course like concat('%', #{skilledCourse}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectHqTeacherByTeacherId" parameterType="Long" resultMap="HqTeacherResult">
+        <include refid="selectHqTeacherVo"/>
+        where teacher_id = #{teacherId}
+    </select>
+        
+    <insert id="insertHqTeacher" parameterType="HqTeacher" useGeneratedKeys="true" keyProperty="teacherId">
+        insert into hq_teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teacherName != null">teacher_name,</if>
+            <if test="teachingLength != null">teaching_length,</if>
+            <if test="teacherPhone != null">teacher_phone,</if>
+            <if test="teacherEmail != null">teacher_email,</if>
+            <if test="skilledCourse != null">skilled_course,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teacherName != null">#{teacherName},</if>
+            <if test="teachingLength != null">#{teachingLength},</if>
+            <if test="teacherPhone != null">#{teacherPhone},</if>
+            <if test="teacherEmail != null">#{teacherEmail},</if>
+            <if test="skilledCourse != null">#{skilledCourse},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHqTeacher" parameterType="HqTeacher">
+        update hq_teacher
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teacherName != null">teacher_name = #{teacherName},</if>
+            <if test="teachingLength != null">teaching_length = #{teachingLength},</if>
+            <if test="teacherPhone != null">teacher_phone = #{teacherPhone},</if>
+            <if test="teacherEmail != null">teacher_email = #{teacherEmail},</if>
+            <if test="skilledCourse != null">skilled_course = #{skilledCourse},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where teacher_id = #{teacherId}
+    </update>
+
+    <delete id="deleteHqTeacherByTeacherId" parameterType="Long">
+        delete from hq_teacher where teacher_id = #{teacherId}
+    </delete>
+
+    <delete id="deleteHqTeacherByTeacherIds" parameterType="String">
+        delete from hq_teacher where teacher_id in 
+        <foreach item="teacherId" collection="array" open="(" separator="," close=")">
+            #{teacherId}
+        </foreach>
+    </delete>
+</mapper>

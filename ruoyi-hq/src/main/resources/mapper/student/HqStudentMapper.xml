@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hq.mapper.HqStudentMapper">
+    
+    <resultMap type="HqStudent" id="HqStudentResult">
+        <result property="studentId"    column="student_id"    />
+        <result property="studentName"    column="student_name"    />
+        <result property="studentPhone"    column="student_phone"    />
+        <result property="studentEmail"    column="student_email"    />
+        <result property="education"    column="education"    />
+        <result property="unit"    column="unit"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectHqStudentVo">
+        select student_id, student_name, student_phone, student_email, education, unit, create_by, create_time, update_by, update_time, remark from hq_student
+    </sql>
+
+    <select id="selectHqStudentList" parameterType="HqStudent" resultMap="HqStudentResult">
+        <include refid="selectHqStudentVo"/>
+        <where>  
+            <if test="studentId != null "> and student_id = #{studentId}</if>
+            <if test="studentName != null  and studentName != ''"> and student_name like concat('%', #{studentName}, '%')</if>
+            <if test="studentPhone != null "> and student_phone = #{studentPhone}</if>
+            <if test="studentEmail != null  and studentEmail != ''"> and student_email = #{studentEmail}</if>
+            <if test="education != null  and education != ''"> and education = #{education}</if>
+            <if test="unit != null  and unit != ''"> and unit like concat('%', #{unit}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectHqStudentByStudentId" parameterType="Long" resultMap="HqStudentResult">
+        <include refid="selectHqStudentVo"/>
+        where student_id = #{studentId}
+    </select>
+        
+    <insert id="insertHqStudent" parameterType="HqStudent" useGeneratedKeys="true" keyProperty="studentId">
+        insert into hq_student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentName != null and studentName != ''">student_name,</if>
+            <if test="studentPhone != null">student_phone,</if>
+            <if test="studentEmail != null">student_email,</if>
+            <if test="education != null">education,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentName != null and studentName != ''">#{studentName},</if>
+            <if test="studentPhone != null">#{studentPhone},</if>
+            <if test="studentEmail != null">#{studentEmail},</if>
+            <if test="education != null">#{education},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHqStudent" parameterType="HqStudent">
+        update hq_student
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentName != null and studentName != ''">student_name = #{studentName},</if>
+            <if test="studentPhone != null">student_phone = #{studentPhone},</if>
+            <if test="studentEmail != null">student_email = #{studentEmail},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where student_id = #{studentId}
+    </update>
+
+    <delete id="deleteHqStudentByStudentId" parameterType="Long">
+        delete from hq_student where student_id = #{studentId}
+    </delete>
+
+    <delete id="deleteHqStudentByStudentIds" parameterType="String">
+        delete from hq_student where student_id in 
+        <foreach item="studentId" collection="array" open="(" separator="," close=")">
+            #{studentId}
+        </foreach>
+    </delete>
+</mapper>
