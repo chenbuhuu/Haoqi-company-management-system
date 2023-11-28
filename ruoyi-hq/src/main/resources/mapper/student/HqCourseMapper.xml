@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hq.mapper.HqCourseMapper">
+    
+    <resultMap type="HqCourse" id="HqCourseResult">
+        <result property="courseId"    column="course_id"    />
+        <result property="courseName"    column="course_name"    />
+        <result property="time"    column="time"    />
+        <result property="place"    column="place"    />
+        <result property="courseContent"    column="course_content"    />
+        <result property="cost"    column="cost"    />
+        <result property="totalIncome"    column="total_income"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectHqCourseVo">
+        select course_id, course_name, time, place, course_content, cost, total_income, create_by, create_time, update_by, update_time, remark from hq_course
+    </sql>
+
+    <select id="selectHqCourseList" parameterType="HqCourse" resultMap="HqCourseResult">
+        <include refid="selectHqCourseVo"/>
+        <where>  
+            <if test="courseName != null  and courseName != ''"> and course_name like concat('%', #{courseName}, '%')</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="place != null  and place != ''"> and place like concat('%', #{place}, '%')</if>
+            <if test="courseContent != null  and courseContent != ''"> and course_content like concat('%', #{courseContent}, '%')</if>
+            <if test="cost != null "> and cost = #{cost}</if>
+        </where>
+    </select>
+    
+    <select id="selectHqCourseByCourseId" parameterType="Long" resultMap="HqCourseResult">
+        <include refid="selectHqCourseVo"/>
+        where course_id = #{courseId}
+    </select>
+        
+    <insert id="insertHqCourse" parameterType="HqCourse" useGeneratedKeys="true" keyProperty="courseId">
+        insert into hq_course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseName != null and courseName != ''">course_name,</if>
+            <if test="time != null">time,</if>
+            <if test="place != null and place != ''">place,</if>
+            <if test="courseContent != null">course_content,</if>
+            <if test="cost != null">cost,</if>
+            <if test="totalIncome != null">total_income,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseName != null and courseName != ''">#{courseName},</if>
+            <if test="time != null">#{time},</if>
+            <if test="place != null and place != ''">#{place},</if>
+            <if test="courseContent != null">#{courseContent},</if>
+            <if test="cost != null">#{cost},</if>
+            <if test="totalIncome != null">#{totalIncome},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHqCourse" parameterType="HqCourse">
+        update hq_course
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="courseName != null and courseName != ''">course_name = #{courseName},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="place != null and place != ''">place = #{place},</if>
+            <if test="courseContent != null">course_content = #{courseContent},</if>
+            <if test="cost != null">cost = #{cost},</if>
+            <if test="totalIncome != null">total_income = #{totalIncome},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where course_id = #{courseId}
+    </update>
+
+    <delete id="deleteHqCourseByCourseId" parameterType="Long">
+        delete from hq_course where course_id = #{courseId}
+    </delete>
+
+    <delete id="deleteHqCourseByCourseIds" parameterType="String">
+        delete from hq_course where course_id in 
+        <foreach item="courseId" collection="array" open="(" separator="," close=")">
+            #{courseId}
+        </foreach>
+    </delete>
+</mapper>

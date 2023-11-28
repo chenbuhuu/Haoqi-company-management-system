@@ -1,38 +1,37 @@
 package com.ruoyi;
 
+import com.ruoyi.hq.domain.HqCourse;
+import com.ruoyi.hq.domain.HqNotice;
+import com.ruoyi.hq.service.IHqCourseService;
+import com.ruoyi.hq.service.IHqNoticeService;
+import com.ruoyi.hq.service.impl.HqCourseServiceImpl;
+import com.ruoyi.hq.service.impl.HqNoticeServiceImpl;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
+import javax.annotation.Resource;
+import java.util.List;
+
+@SpringBootTest
+public class AppTest
+
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+private IHqCourseService hqCourseService=new HqCourseServiceImpl();
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+private IHqNoticeService hqnoticeService=new HqNoticeServiceImpl();
+
+public void testSelectnotice()
+{
+    HqNotice hqNotice=new HqNotice();
+    HqCourse hqCourse=new HqCourse();
+    hqCourse.setCourseName("数据结构");
+    hqNotice.setHqCourse(hqCourse);
+    List<HqNotice> hqNoticeList=hqnoticeService.selectHqNoticeList(hqNotice);
+    System.out.println(hqNoticeList);
+}
+
 }
