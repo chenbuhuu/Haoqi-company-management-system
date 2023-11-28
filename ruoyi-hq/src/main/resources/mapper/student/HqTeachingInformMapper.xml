@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hq.mapper.HqTeachingInformMapper">
+
+    <resultMap type="HqTeachingInform" id="HqTeachingInformResult">
+        <result property="tiCourseId"    column="ti_course_id"    />
+        <result property="tiTeacherId"    column="ti_teacher_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <association property="hqTeacher" javaType="hqTeacher" resultMap="com.ruoyi.hq.mapper.HqTeacherMapper.HqTeacherResult"></association>
+        <association property="hqCourse" javaType="hqCourse" resultMap="com.ruoyi.hq.mapper.HqCourseMapper.HqCourseResult"></association>
+
+    </resultMap>
+
+    <sql id="selectHqTeachingInformVo">
+        SELECT ti.*, t.*, c.*
+        FROM hq_teacher t
+                 LEFT JOIN hq_teaching_inform ti ON ti.ti_teacher_id = t.teacher_id
+                 LEFT JOIN hq_course c ON ti.ti_course_id = c.course_id
+
+    </sql>
+
+    <select id="selectHqTeachingInformList" parameterType="HqTeachingInform" resultMap="HqTeachingInformResult">
+        <include refid="selectHqTeachingInformVo"/>
+        <where>
+            <if test="tiCourseId != null "> and ti.ti_course_id = #{tiCourseId}</if>
+            <if test="hqTeacher != null and hqTeacher.teacherName != null and hqTeacher.teacherName != '' "> and t.teacher_name = #{hqTeacher.teacherName}</if>
+            <if test="tiCourseId != null "> and ti.ti_course_id = #{tiCourseId}</if>
+            <if test="hqCourse != null and hqCourse.courseName != null and hqCourse.courseName != '' "> and c.course_name = #{hqCourse.courseName}</if>
+
+        </where>
+    </select>
+
+    <select id="selectHqTeachingInformByTiCourseId" parameterType="Long" resultMap="HqTeachingInformResult">
+        <include refid="selectHqTeachingInformVo"/>
+        where ti.ti_course_id = #{tiCourseId}
+    </select>
+
+    <insert id="insertHqTeachingInform" parameterType="HqTeachingInform">
+        insert into hq_teaching_inform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tiCourseId != null">ti_course_id,</if>
+            <if test="tiTeacherId != null">ti_teacher_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tiCourseId != null">#{tiCourseId},</if>
+            <if test="tiTeacherId != null">#{tiTeacherId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHqTeachingInform" parameterType="HqTeachingInform">
+        update hq_teaching_inform
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tiTeacherId != null">ti_teacher_id = #{tiTeacherId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where ti_course_id = #{tiCourseId}
+    </update>
+
+    <delete id="deleteHqTeachingInformByTiCourseId" parameterType="Long">
+        delete from hq_teaching_inform where ti_course_id = #{tiCourseId}
+    </delete>
+
+    <delete id="deleteHqTeachingInformByTiCourseIds" parameterType="String">
+        delete from hq_teaching_inform where ti_course_id in
+        <foreach item="tiCourseId" collection="array" open="(" separator="," close=")">
+            #{tiCourseId}
+        </foreach>
+    </delete>
+</mapper>

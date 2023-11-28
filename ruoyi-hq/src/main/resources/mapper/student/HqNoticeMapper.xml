@@ -18,7 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectHqNoticeVo">
-        select n.*,c.* from hq_notice n left join hq_course c on n.notice_course_id = c.course_id
+        select n.*,c.* from hq_notice n left join hq_course c
+            on n.notice_course_id = c.course_id
     </sql>
 
     <select id="selectHqNoticeList" parameterType="HqNotice" resultMap="HqNoticeResult">
