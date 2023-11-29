@@ -1,25 +1,31 @@
 package com.ruoyi.web.controller.hq;
 
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.hq.domain.HqStudent;
 import com.ruoyi.hq.service.IHqStudentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 学员信息管理Controller
  *
  * @author chenxinyang
- * @date 2023-11-27
+ * @date 2023-11-29
  */
 @RestController
 @RequestMapping("/student/student")
@@ -57,10 +63,10 @@ public class HqStudentController extends BaseController
      * 获取学员信息管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('student:student:query')")
-    @GetMapping(value = "/{studentId}")
-    public AjaxResult getInfo(@PathVariable("studentId") Long studentId)
+    @GetMapping(value = "/{id}")
+    public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(hqStudentService.selectHqStudentByStudentId(studentId));
+        return success(hqStudentService.selectHqStudentById(id));
     }
 
     /**
@@ -90,9 +96,9 @@ public class HqStudentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('student:student:remove')")
     @Log(title = "学员信息管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{studentIds}")
-    public AjaxResult remove(@PathVariable Long[] studentIds)
+	@DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(hqStudentService.deleteHqStudentByStudentIds(studentIds));
+        return toAjax(hqStudentService.deleteHqStudentByIds(ids));
     }
 }

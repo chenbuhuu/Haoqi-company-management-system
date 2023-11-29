@@ -7,17 +7,17 @@ import com.ruoyi.hq.domain.HqStudent;
  * 学员信息管理Mapper接口
  * 
  * @author chenxinyang
- * @date 2023-11-27
+ * @date 2023-11-29
  */
 public interface HqStudentMapper 
 {
     /**
      * 查询学员信息管理
      * 
-     * @param studentId 学员信息管理主键
+     * @param id 学员信息管理主键
      * @return 学员信息管理
      */
-    public HqStudent selectHqStudentByStudentId(Long studentId);
+    public HqStudent selectHqStudentById(Long id);
 
     /**
      * 查询学员信息管理列表
@@ -46,16 +46,16 @@ public interface HqStudentMapper
     /**
      * 删除学员信息管理
      * 
-     * @param studentId 学员信息管理主键
+     * @param id 学员信息管理主键
      * @return 结果
      */
-    public int deleteHqStudentByStudentId(Long studentId);
+    public int deleteHqStudentById(Long id);
 
     /**
      * 批量删除学员信息管理
      * 
-     * @param studentIds 需要删除的数据主键集合
+     * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteHqStudentByStudentIds(Long[] studentIds);
+    public int deleteHqStudentByIds(Long[] ids);
 }

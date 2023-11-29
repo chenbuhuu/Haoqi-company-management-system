@@ -12,7 +12,7 @@ import com.ruoyi.hq.service.IHqTeachingInformService;
  * 讲师代课信息管理Service业务层处理
  * 
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-11-29
  */
 @Service
 public class HqTeachingInformServiceImpl implements IHqTeachingInformService 
@@ -23,13 +23,13 @@ public class HqTeachingInformServiceImpl implements IHqTeachingInformService
     /**
      * 查询讲师代课信息管理
      * 
-     * @param tiCourseId 讲师代课信息管理主键
+     * @param id 讲师代课信息管理主键
      * @return 讲师代课信息管理
      */
     @Override
-    public HqTeachingInform selectHqTeachingInformByTiCourseId(Long tiCourseId)
+    public HqTeachingInform selectHqTeachingInformById(Long id)
     {
-        return hqTeachingInformMapper.selectHqTeachingInformByTiCourseId(tiCourseId);
+        return hqTeachingInformMapper.selectHqTeachingInformById(id);
     }
 
     /**
@@ -73,24 +73,24 @@ public class HqTeachingInformServiceImpl implements IHqTeachingInformService
     /**
      * 批量删除讲师代课信息管理
      * 
-     * @param tiCourseIds 需要删除的讲师代课信息管理主键
+     * @param ids 需要删除的讲师代课信息管理主键
      * @return 结果
      */
     @Override
-    public int deleteHqTeachingInformByTiCourseIds(Long[] tiCourseIds)
+    public int deleteHqTeachingInformByIds(Long[] ids)
     {
-        return hqTeachingInformMapper.deleteHqTeachingInformByTiCourseIds(tiCourseIds);
+        return hqTeachingInformMapper.deleteHqTeachingInformByIds(ids);
     }
 
     /**
      * 删除讲师代课信息管理信息
      * 
-     * @param tiCourseId 讲师代课信息管理主键
+     * @param id 讲师代课信息管理主键
      * @return 结果
      */
     @Override
-    public int deleteHqTeachingInformByTiCourseId(Long tiCourseId)
+    public int deleteHqTeachingInformById(Long id)
     {
-        return hqTeachingInformMapper.deleteHqTeachingInformByTiCourseId(tiCourseId);
+        return hqTeachingInformMapper.deleteHqTeachingInformById(id);
     }
 }

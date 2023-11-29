@@ -10,9 +10,9 @@ export function listStudent(query) {
 }
 
 // 查询学员信息管理详细
-export function getStudent(studentId) {
+export function getStudent(id) {
   return request({
-    url: '/student/student/' + studentId,
+    url: '/student/student/' + id,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateStudent(data) {
 }
 
 // 删除学员信息管理
-export function delStudent(studentId) {
+export function delStudent(id) {
   return request({
-    url: '/student/student/' + studentId,
+    url: '/student/student/' + id,
     method: 'delete'
   })
 }

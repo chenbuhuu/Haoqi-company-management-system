@@ -12,7 +12,7 @@ import com.ruoyi.hq.service.IHqStudentService;
  * 学员信息管理Service业务层处理
  * 
  * @author chenxinyang
- * @date 2023-11-27
+ * @date 2023-11-29
  */
 @Service
 public class HqStudentServiceImpl implements IHqStudentService 
@@ -23,13 +23,13 @@ public class HqStudentServiceImpl implements IHqStudentService
     /**
      * 查询学员信息管理
      * 
-     * @param studentId 学员信息管理主键
+     * @param id 学员信息管理主键
      * @return 学员信息管理
      */
     @Override
-    public HqStudent selectHqStudentByStudentId(Long studentId)
+    public HqStudent selectHqStudentById(Long id)
     {
-        return hqStudentMapper.selectHqStudentByStudentId(studentId);
+        return hqStudentMapper.selectHqStudentById(id);
     }
 
     /**
@@ -73,24 +73,24 @@ public class HqStudentServiceImpl implements IHqStudentService
     /**
      * 批量删除学员信息管理
      * 
-     * @param studentIds 需要删除的学员信息管理主键
+     * @param ids 需要删除的学员信息管理主键
      * @return 结果
      */
     @Override
-    public int deleteHqStudentByStudentIds(Long[] studentIds)
+    public int deleteHqStudentByIds(Long[] ids)
     {
-        return hqStudentMapper.deleteHqStudentByStudentIds(studentIds);
+        return hqStudentMapper.deleteHqStudentByIds(ids);
     }
 
     /**
      * 删除学员信息管理信息
      * 
-     * @param studentId 学员信息管理主键
+     * @param id 学员信息管理主键
      * @return 结果
      */
     @Override
-    public int deleteHqStudentByStudentId(Long studentId)
+    public int deleteHqStudentById(Long id)
     {
-        return hqStudentMapper.deleteHqStudentByStudentId(studentId);
+        return hqStudentMapper.deleteHqStudentById(id);
     }
 }

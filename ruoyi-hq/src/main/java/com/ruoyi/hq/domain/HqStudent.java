@@ -9,11 +9,14 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 学员信息管理对象 hq_student
  * 
  * @author chenxinyang
- * @date 2023-11-27
+ * @date 2023-11-29
  */
 public class HqStudent extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
+
+    /** 编号 */
+    private Long id;
 
     /** 身份证号 */
     @Excel(name = "身份证号")
@@ -39,6 +42,15 @@ public class HqStudent extends BaseEntity
     @Excel(name = "所属单位")
     private String unit;
 
+    public void setId(Long id) 
+    {
+        this.id = id;
+    }
+
+    public Long getId() 
+    {
+        return id;
+    }
     public void setStudentId(Long studentId) 
     {
         this.studentId = studentId;
@@ -97,6 +109,7 @@ public class HqStudent extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("id", getId())
             .append("studentId", getStudentId())
             .append("studentName", getStudentName())
             .append("studentPhone", getStudentPhone())

@@ -9,11 +9,14 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 讲师代课信息管理对象 hq_teaching_inform
  *
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-11-29
  */
 public class HqTeachingInform extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
+
+    /** 编号 */
+    private Long id;
 
     /** 课程编号 */
     @Excel(name = "课程编号")
@@ -41,6 +44,15 @@ public class HqTeachingInform extends BaseEntity
         this.hqCourse = hqCourse;
     }
 
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
     public void setTiCourseId(Long tiCourseId)
     {
         this.tiCourseId = tiCourseId;
@@ -63,6 +75,7 @@ public class HqTeachingInform extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("id", getId())
             .append("tiCourseId", getTiCourseId())
             .append("tiTeacherId", getTiTeacherId())
             .append("createBy", getCreateBy())
@@ -70,9 +83,6 @@ public class HqTeachingInform extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
-                .append("hqTeacher", getHqTeacher())
-                .append("hqCourse", getHqCourse())
-
             .toString();
     }
 }

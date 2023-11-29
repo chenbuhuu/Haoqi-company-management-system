@@ -1,52 +1,72 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="身份证号" prop="studentId">
+      <el-form-item label="学生身份证" prop="csStudentId">
         <el-input
-          v-model="queryParams.studentId"
-          placeholder="请输入身份证号"
+          v-model="queryParams.csStudentId"
+          placeholder="请输入学生身份证"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="学员姓名" prop="studentName">
+      <el-form-item label="学员姓名" prop="csStudentId">
         <el-input
-          v-model="queryParams.studentName"
+          v-model="queryParams['hqStudent.studentName']"
           placeholder="请输入学员姓名"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="学员电话" prop="studentPhone">
+      <el-form-item label="课程编号" prop="csCourseId">
         <el-input
-          v-model="queryParams.studentPhone"
-          placeholder="请输入学员电话"
+          v-model="queryParams.csCourseId"
+          placeholder="请输入课程编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="学员邮箱" prop="studentEmail">
+      <el-form-item label="课程名" prop="csCourseId">
         <el-input
-          v-model="queryParams.studentEmail"
-          placeholder="请输入学员邮箱"
+          v-model="queryParams['hqCourse.courseName']"
+          placeholder="请输入课程名"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="学历" prop="education">
-        <el-select v-model="queryParams.education" placeholder="请选择学历" clearable>
+      <el-form-item label="缴费状态" prop="payment">
+        <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" clearable>
           <el-option
-            v-for="dict in dict.type.hq_student_education"
+            v-for="dict in dict.type.payment_status"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="所属单位" prop="unit">
+      <el-form-item label="签到状态" prop="sign">
+        <el-select v-model="queryParams.sign" placeholder="请选择签到状态" clearable>
+          <el-option
+            v-for="dict in dict.type.sign_in_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="报名状态" prop="registStatus">
+        <el-select v-model="queryParams.registStatus" placeholder="请选择报名状态" clearable>
+          <el-option
+            v-for="dict in dict.type.sign_up_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="课程评价" prop="evaluate">
         <el-input
-          v-model="queryParams.unit"
-          placeholder="请输入所属单位"
+          v-model="queryParams.evaluate"
+          placeholder="请输入课程评价"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -65,7 +85,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['student:student:add']"
+          v-hasPermi="['studying:studying:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -76,7 +96,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['student:student:edit']"
+          v-hasPermi="['studying:studying:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -87,7 +107,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['student:student:remove']"
+          v-hasPermi="['studying:studying:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -97,25 +117,35 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['student:student:export']"
+          v-hasPermi="['studying:studying:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="studentList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="studyingList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="身份证号" align="center" prop="studentId" />
-      <el-table-column label="学员姓名" align="center" prop="studentName" />
-      <el-table-column label="学员电话" align="center" prop="studentPhone" />
-      <el-table-column label="学员邮箱" align="center" prop="studentEmail" />
-      <el-table-column label="学历" align="center" prop="education">
+      <el-table-column label="学生身份证" align="center" prop="hqStudent.studentId" />
+      <el-table-column label="学员姓名" align="center" prop="hqStudent.studentName" />
+      <el-table-column label="课程编号" align="center" prop="hqCourse.courseId" />
+      <el-table-column label="课程名" align="center" prop="hqCourse.courseName" />
+      <el-table-column label="缴费状态" align="center" prop="payment">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.hq_student_education" :value="scope.row.education"/>
+          <dict-tag :options="dict.type.payment_status" :value="scope.row.payment"/>
         </template>
       </el-table-column>
-      <el-table-column label="所属单位" align="center" prop="unit" />
+      <el-table-column label="签到状态" align="center" prop="sign">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.sign_in_status" :value="scope.row.sign"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="报名状态" align="center" prop="registStatus">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.sign_up_status" :value="scope.row.registStatus"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="课程评价" align="center" prop="evaluate" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -123,19 +153,19 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['student:student:edit']"
+            v-hasPermi="['studying:studying:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['student:student:remove']"
+            v-hasPermi="['studying:studying:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -144,33 +174,44 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改学员信息管理对话框 -->
+    <!-- 添加或修改学员上课信息管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="身份证号" prop="studentId">
-          <el-input v-model="form.studentId" placeholder="请输入身份证号" />
+        <el-form-item label="学生身份证" prop="csStudentId">
+          <el-input v-model="form.csStudentId" placeholder="请输入学生身份证" />
         </el-form-item>
-        <el-form-item label="学员姓名" prop="studentName">
-          <el-input v-model="form.studentName" placeholder="请输入学员姓名" />
+        <el-form-item label="课程编号" prop="csCourseId">
+          <el-input v-model="form.csCourseId" placeholder="请输入课程编号" />
         </el-form-item>
-        <el-form-item label="学员电话" prop="studentPhone">
-          <el-input v-model="form.studentPhone" placeholder="请输入学员电话" />
-        </el-form-item>
-        <el-form-item label="学员邮箱" prop="studentEmail">
-          <el-input v-model="form.studentEmail" placeholder="请输入学员邮箱" />
-        </el-form-item>
-        <el-form-item label="学历" prop="education">
-          <el-select v-model="form.education" placeholder="请选择学历">
-            <el-option
-              v-for="dict in dict.type.hq_student_education"
+        <el-form-item label="缴费状态" prop="payment">
+          <el-radio-group v-model="form.payment">
+            <el-radio
+              v-for="dict in dict.type.payment_status"
               :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
-          </el-select>
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="所属单位" prop="unit">
-          <el-input v-model="form.unit" placeholder="请输入所属单位" />
+        <el-form-item label="签到状态" prop="sign">
+          <el-radio-group v-model="form.sign">
+            <el-radio
+              v-for="dict in dict.type.sign_in_status"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="报名状态" prop="registStatus">
+          <el-radio-group v-model="form.registStatus">
+            <el-radio
+              v-for="dict in dict.type.sign_up_status"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="课程评价" prop="evaluate">
+          <el-input v-model="form.evaluate" placeholder="请输入课程评价" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -182,11 +223,11 @@
 </template>
 
 <script>
-import { listStudent, getStudent, delStudent, addStudent, updateStudent } from "@/api/student/student";
+import { listStudying, getStudying, delStudying, addStudying, updateStudying } from "@/api/studying/studying";
 
 export default {
-  name: "Student",
-  dicts: ['hq_student_education'],
+  name: "Studying",
+  dicts: ['sign_up_status', 'sign_in_status', 'payment_status'],
   data() {
     return {
       // 遮罩层
@@ -201,8 +242,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 学员信息管理表格数据
-      studentList: [],
+      // 学员上课信息管理表格数据
+      studyingList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -211,28 +252,24 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        studentId: null,
-        studentName: null,
-        studentPhone: null,
-        studentEmail: null,
-        education: null,
-        unit: null,
+        csStudentId: null,
+        csCourseId: null,
+        payment: null,
+        sign: null,
+        registStatus: null,
+        evaluate: null,
+        'hqStudent.studentName':null,
+        'hqCourse.courseName':null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        studentId: [
-          { required: true, message: "身份证号不能为空", trigger: "blur" }
+        csStudentId: [
+          { required: true, message: "学生身份证不能为空", trigger: "blur" }
         ],
-        studentName: [
-          { required: true, message: "学员姓名不能为空", trigger: "blur" }
-        ],
-        studentPhone: [
-          { required: true, message: "学员电话不能为空", trigger: "blur" }
-        ],
-        unit: [
-          { required: true, message: "所属单位不能为空", trigger: "blur" }
+        csCourseId: [
+          { required: true, message: "课程编号不能为空", trigger: "blur" }
         ],
       }
     };
@@ -241,11 +278,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询学员信息管理列表 */
+    /** 查询学员上课信息管理列表 */
     getList() {
       this.loading = true;
-      listStudent(this.queryParams).then(response => {
-        this.studentList = response.rows;
+      listStudying(this.queryParams).then(response => {
+        this.studyingList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -259,12 +296,12 @@ export default {
     reset() {
       this.form = {
         id: null,
-        studentId: null,
-        studentName: null,
-        studentPhone: null,
-        studentEmail: null,
-        education: null,
-        unit: null,
+        csStudentId: null,
+        csCourseId: null,
+        payment: null,
+        sign: null,
+        registStatus: null,
+        evaluate: null,
         createBy: null,
         createTime: null,
         updateBy: null,
@@ -293,16 +330,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加学员信息管理";
+      this.title = "添加学员上课信息管理";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getStudent(id).then(response => {
+      getStudying(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改学员信息管理";
+        this.title = "修改学员上课信息管理";
       });
     },
     /** 提交按钮 */
@@ -310,13 +347,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateStudent(this.form).then(response => {
+            updateStudying(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addStudent(this.form).then(response => {
+            addStudying(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -328,8 +365,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除学员信息管理编号为"' + ids + '"的数据项？').then(function() {
-        return delStudent(ids);
+      this.$modal.confirm('是否确认删除学员上课信息管理编号为"' + ids + '"的数据项？').then(function() {
+        return delStudying(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -337,9 +374,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('student/student/export', {
+      this.download('studying/studying/export', {
         ...this.queryParams
-      }, `student_${new Date().getTime()}.xlsx`)
+      }, `studying_${new Date().getTime()}.xlsx`)
     }
   }
 };

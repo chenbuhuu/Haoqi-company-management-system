@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 讲师代课信息管理Controller
  *
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-11-29
  */
 @RestController
 @RequestMapping("/teaching/teaching")
@@ -63,10 +63,10 @@ public class HqTeachingInformController extends BaseController
      * 获取讲师代课信息管理详细信息
      */
     @PreAuthorize("@ss.hasPermi('teaching:teaching:query')")
-    @GetMapping(value = "/{tiCourseId}")
-    public AjaxResult getInfo(@PathVariable("tiCourseId") Long tiCourseId)
+    @GetMapping(value = "/{id}")
+    public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(hqTeachingInformService.selectHqTeachingInformByTiCourseId(tiCourseId));
+        return success(hqTeachingInformService.selectHqTeachingInformById(id));
     }
 
     /**
@@ -96,9 +96,9 @@ public class HqTeachingInformController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('teaching:teaching:remove')")
     @Log(title = "讲师代课信息管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{tiCourseIds}")
-    public AjaxResult remove(@PathVariable Long[] tiCourseIds)
+	@DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(hqTeachingInformService.deleteHqTeachingInformByTiCourseIds(tiCourseIds));
+        return toAjax(hqTeachingInformService.deleteHqTeachingInformByIds(ids));
     }
 }

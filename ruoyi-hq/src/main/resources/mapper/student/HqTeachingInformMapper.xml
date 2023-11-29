@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ruoyi.hq.mapper.HqTeachingInformMapper">
 
     <resultMap type="HqTeachingInform" id="HqTeachingInformResult">
+        <result property="id"    column="id"    />
         <result property="tiCourseId"    column="ti_course_id"    />
         <result property="tiTeacherId"    column="ti_teacher_id"    />
         <result property="createBy"    column="create_by"    />
@@ -14,14 +15,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
         <association property="hqTeacher" javaType="hqTeacher" resultMap="com.ruoyi.hq.mapper.HqTeacherMapper.HqTeacherResult"></association>
         <association property="hqCourse" javaType="hqCourse" resultMap="com.ruoyi.hq.mapper.HqCourseMapper.HqCourseResult"></association>
-
     </resultMap>
 
     <sql id="selectHqTeachingInformVo">
         SELECT ti.*, t.*, c.*
-        FROM hq_teacher t
-                 LEFT JOIN hq_teaching_inform ti ON ti.ti_teacher_id = t.teacher_id
-                 LEFT JOIN hq_course c ON ti.ti_course_id = c.course_id
+        FROM 	hq_teaching_inform ti
+                    LEFT JOIN  hq_teacher t ON ti.ti_teacher_id = t.teacher_id
+                    LEFT JOIN hq_course c ON ti.ti_course_id = c.course_id
 
     </sql>
 
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where ti.ti_course_id = #{tiCourseId}
     </select>
 
-    <insert id="insertHqTeachingInform" parameterType="HqTeachingInform">
+    <insert id="insertHqTeachingInform" parameterType="HqTeachingInform" useGeneratedKeys="true" keyProperty="id">
         insert into hq_teaching_inform
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tiCourseId != null">ti_course_id,</if>
@@ -66,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateHqTeachingInform" parameterType="HqTeachingInform">
         update hq_teaching_inform
         <trim prefix="SET" suffixOverrides=",">
+            <if test="tiCourseId != null">ti_course_id = #{tiCourseId},</if>
             <if test="tiTeacherId != null">ti_teacher_id = #{tiTeacherId},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
@@ -73,17 +74,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
-        where ti_course_id = #{tiCourseId}
+        where id = #{id}
     </update>
 
-    <delete id="deleteHqTeachingInformByTiCourseId" parameterType="Long">
-        delete from hq_teaching_inform where ti_course_id = #{tiCourseId}
+    <delete id="deleteHqTeachingInformById" parameterType="Long">
+        delete from hq_teaching_inform where id = #{id}
     </delete>
 
-    <delete id="deleteHqTeachingInformByTiCourseIds" parameterType="String">
-        delete from hq_teaching_inform where ti_course_id in
-        <foreach item="tiCourseId" collection="array" open="(" separator="," close=")">
-            #{tiCourseId}
+    <delete id="deleteHqTeachingInformByIds" parameterType="String">
+        delete from hq_teaching_inform where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
         </foreach>
     </delete>
 </mapper>

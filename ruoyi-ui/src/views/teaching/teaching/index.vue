@@ -123,11 +123,11 @@
     <!-- 添加或修改讲师代课信息管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="课程编号" prop="tiCourseId">
+          <el-input v-model="form.tiCourseId" placeholder="请输入课程编号" />
+        </el-form-item>
         <el-form-item label="老师编号" prop="tiTeacherId">
           <el-input v-model="form.tiTeacherId" placeholder="请输入老师编号" />
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -171,12 +171,17 @@ export default {
         tiTeacherId: null,
         'hqTeacher.teacherName':null,
         'hqCourse.courseName':null
-
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        tiCourseId: [
+          { required: true, message: "课程编号不能为空", trigger: "blur" }
+        ],
+        tiTeacherId: [
+          { required: true, message: "老师编号不能为空", trigger: "blur" }
+        ],
       }
     };
   },
@@ -201,6 +206,7 @@ export default {
     // 表单重置
     reset() {
       this.form = {
+        id: null,
         tiCourseId: null,
         tiTeacherId: null,
         createBy: null,
@@ -223,7 +229,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.tiCourseId)
+      this.ids = selection.map(item => item.id)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -236,8 +242,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const tiCourseId = row.tiCourseId || this.ids
-      getTeaching(tiCourseId).then(response => {
+      const id = row.id || this.ids
+      getTeaching(id).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改讲师代课信息管理";
@@ -247,7 +253,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.tiCourseId != null) {
+          if (this.form.id != null) {
             updateTeaching(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -265,9 +271,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const tiCourseIds = row.tiCourseId || this.ids;
-      this.$modal.confirm('是否确认删除讲师代课信息管理编号为"' + tiCourseIds + '"的数据项？').then(function() {
-        return delTeaching(tiCourseIds);
+      const ids = row.id || this.ids;
+      this.$modal.confirm('是否确认删除讲师代课信息管理编号为"' + ids + '"的数据项？').then(function() {
+        return delTeaching(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");

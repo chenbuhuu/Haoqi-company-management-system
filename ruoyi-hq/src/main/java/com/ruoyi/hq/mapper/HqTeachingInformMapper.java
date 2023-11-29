@@ -7,17 +7,17 @@ import com.ruoyi.hq.domain.HqTeachingInform;
  * 讲师代课信息管理Mapper接口
  * 
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-11-29
  */
 public interface HqTeachingInformMapper 
 {
     /**
      * 查询讲师代课信息管理
      * 
-     * @param tiCourseId 讲师代课信息管理主键
+     * @param id 讲师代课信息管理主键
      * @return 讲师代课信息管理
      */
-    public HqTeachingInform selectHqTeachingInformByTiCourseId(Long tiCourseId);
+    public HqTeachingInform selectHqTeachingInformById(Long id);
 
     /**
      * 查询讲师代课信息管理列表
@@ -46,16 +46,16 @@ public interface HqTeachingInformMapper
     /**
      * 删除讲师代课信息管理
      * 
-     * @param tiCourseId 讲师代课信息管理主键
+     * @param id 讲师代课信息管理主键
      * @return 结果
      */
-    public int deleteHqTeachingInformByTiCourseId(Long tiCourseId);
+    public int deleteHqTeachingInformById(Long id);
 
     /**
      * 批量删除讲师代课信息管理
      * 
-     * @param tiCourseIds 需要删除的数据主键集合
+     * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteHqTeachingInformByTiCourseIds(Long[] tiCourseIds);
+    public int deleteHqTeachingInformByIds(Long[] ids);
 }

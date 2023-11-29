@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hq.mapper.HqCourseSituationMapper">
+
+    <resultMap type="HqCourseSituation" id="HqCourseSituationResult">
+        <result property="id"    column="id"    />
+        <result property="csStudentId"    column="cs_student_id"    />
+        <result property="csCourseId"    column="cs_course_id"    />
+        <result property="payment"    column="payment"    />
+        <result property="sign"    column="sign"    />
+        <result property="registStatus"    column="regist_status"    />
+        <result property="evaluate"    column="evaluate"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <association property="hqStudent" javaType="hqStudent" resultMap="com.ruoyi.hq.mapper.HqStudentMapper.HqStudentResult"></association>
+        <association property="hqCourse" javaType="hqCourse" resultMap="com.ruoyi.hq.mapper.HqCourseMapper.HqCourseResult"></association>
+    </resultMap>
+
+    <sql id="selectHqCourseSituationVo">
+        select cs.*,s.*,c.* from hq_course_situation cs
+                                     left join hq_course c on c.course_id =cs.cs_course_id
+                                     left join hq_student s on s.student_id =cs.cs_student_id
+    </sql>
+
+    <select id="selectHqCourseSituationList" parameterType="HqCourseSituation" resultMap="HqCourseSituationResult">
+        <include refid="selectHqCourseSituationVo"/>
+        <where>
+            <if test="csStudentId != null "> and cs.cs_student_id = #{csStudentId}</if>
+            <if test="hqStudent != null and hqStudent.studentName!='' and hqStudent.studentName!=null "> and s.student_name = #{hqStudent.studentName}</if>
+            <if test="csCourseId != null "> and cs.cs_course_id = #{csCourseId}</if>
+            <if test="hqCourse != null and hqCourse.courseName!='' and hqCourse.courseName!=null "> and c.course_name = #{hqCourse.courseName}</if>
+            <if test="payment != null "> and cs.payment = #{payment}</if>
+            <if test="sign != null "> and cs.sign = #{sign}</if>
+            <if test="registStatus != null "> and cs.regist_status = #{registStatus}</if>
+            <if test="evaluate != null  and evaluate != ''"> and cs.evaluate like concat('%', #{evaluate}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectHqCourseSituationById" parameterType="Long" resultMap="HqCourseSituationResult">
+        <include refid="selectHqCourseSituationVo"/>
+        where cs.id = #{id}
+    </select>
+
+    <insert id="insertHqCourseSituation" parameterType="HqCourseSituation" useGeneratedKeys="true" keyProperty="id">
+        insert into hq_course_situation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="csStudentId != null">cs_student_id,</if>
+            <if test="csCourseId != null">cs_course_id,</if>
+            <if test="payment != null">payment,</if>
+            <if test="sign != null">sign,</if>
+            <if test="registStatus != null">regist_status,</if>
+            <if test="evaluate != null">evaluate,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="csStudentId != null">#{csStudentId},</if>
+            <if test="csCourseId != null">#{csCourseId},</if>
+            <if test="payment != null">#{payment},</if>
+            <if test="sign != null">#{sign},</if>
+            <if test="registStatus != null">#{registStatus},</if>
+            <if test="evaluate != null">#{evaluate},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHqCourseSituation" parameterType="HqCourseSituation">
+        update hq_course_situation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="csStudentId != null">cs_student_id = #{csStudentId},</if>
+            <if test="csCourseId != null">cs_course_id = #{csCourseId},</if>
+            <if test="payment != null">payment = #{payment},</if>
+            <if test="sign != null">sign = #{sign},</if>
+            <if test="registStatus != null">regist_status = #{registStatus},</if>
+            <if test="evaluate != null">evaluate = #{evaluate},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHqCourseSituationById" parameterType="Long">
+        delete from hq_course_situation where id = #{id}
+    </delete>
+
+    <delete id="deleteHqCourseSituationByIds" parameterType="String">
+        delete from hq_course_situation where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

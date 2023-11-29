@@ -10,9 +10,9 @@ export function listTeaching(query) {
 }
 
 // 查询讲师代课信息管理详细
-export function getTeaching(tiCourseId) {
+export function getTeaching(id) {
   return request({
-    url: '/teaching/teaching/' + tiCourseId,
+    url: '/teaching/teaching/' + id,
     method: 'get'
   })
 }
@@ -36,9 +36,9 @@ export function updateTeaching(data) {
 }
 
 // 删除讲师代课信息管理
-export function delTeaching(tiCourseId) {
+export function delTeaching(id) {
   return request({
-    url: '/teaching/teaching/' + tiCourseId,
+    url: '/teaching/teaching/' + id,
     method: 'delete'
   })
 }
