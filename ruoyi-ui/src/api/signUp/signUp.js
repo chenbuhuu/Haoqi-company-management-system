@@ -46,9 +46,7 @@ export function updateSignUp(data) {
 }
 
 export function searchSuitableCourse(dateRange) {
-  console.log("--------")
-  console.log(dateRange)
-  console.log("--------")
+
 
   return request({
     url: '/signUp/signUp/' + dateRange,
@@ -56,10 +54,10 @@ export function searchSuitableCourse(dateRange) {
   })
 }
 
-// export function signUp(data) {
-//   return request({
-//     url: '/signUp/signUp',
-//     method: 'post',
-//     data:data
-//   })
-// }
+ export function signUp(data) {
+   return request({
+     url: '/signUp/signUp',
+     method: 'post',
+     data:data
+   })
+}

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,13 +78,13 @@ public class SignUpController extends BaseController
     /**
      * 新增学员报名课程
      */
-    @PreAuthorize("@ss.hasPermi('signUp:signUp:add')")
-    @Log(title = "学员报名课程", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody SignUp signUp)
-    {
-        return toAjax(signUpService.insertSignUp(signUp));
-    }
+//    @PreAuthorize("@ss.hasPermi('signUp:signUp:add')")
+//    @Log(title = "学员报名课程", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody SignUp signUp)
+//    {
+//        return toAjax(signUpService.insertSignUp(signUp));
+//    }
 
     /**
      * 修改学员报名课程
@@ -119,11 +121,23 @@ public class SignUpController extends BaseController
             throw new RuntimeException(e);
         }
 
-
-        System.out.println("1------------------------------------1");
-
-        System.out.println(dateRange);
-        System.out.println("1------------------------------------1");
         return success(signUpService.searchSuitableCourse(d));
     }
+
+    @PreAuthorize("@ss.hasPermi('signUp:signUp:add')")
+    @Log(title = "学员报名课程", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult signUp(@RequestBody SignUp signUp)
+    {
+
+        try {
+            // 处理业务逻辑
+            return toAjax(signUpService.signUp(signUp));
+        } catch (Exception e) {
+            // 处理其他异常
+            return new AjaxResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), "请勿重复报名");
+        }
+    }
+
+
 }

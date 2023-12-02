@@ -132,7 +132,7 @@ public class AjaxResult extends HashMap<String, Object>
      */
     public static AjaxResult error()
     {
-        return AjaxResult.error("操作失败");
+        return AjaxResult.error("操作不失败");
     }
 
     /**

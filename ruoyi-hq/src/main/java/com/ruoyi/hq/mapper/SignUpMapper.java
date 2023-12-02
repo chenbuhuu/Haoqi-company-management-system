@@ -5,6 +5,7 @@ import java.util.List;
 import com.ruoyi.hq.domain.SignUp;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
 
 /**
  * 学员报名课程Mapper接口
@@ -62,4 +63,8 @@ public interface SignUpMapper
      */
     public int deleteSignUpByDeptIds(Long[] deptIds);
     public List<SignUp> searchSuitableCourse( @Param("dateRange") List<Date> dateRange);
+    public int insertStudent(SignUp signUp) ;
+
+    public int signUp(SignUp signUp);
+
 }

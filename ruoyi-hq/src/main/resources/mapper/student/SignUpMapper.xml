@@ -19,11 +19,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="studentName"    column="student_name"    />
+        <result property="studentPhone"    column="student_phone"    />
+        <result property="studentEmail"    column="student_email"    />
+        <result property="education"    column="education"    />
+        <result property="unit"    column="unit"    />
         <result property="courseName"    column="course_name"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="time"    column="time"    />
+
     </resultMap>
 
     <sql id="selectSignUpVo">
-        select course_name from hq_course c
+        select * from hq_course c
     </sql>
 
     <select id="selectSignUpList" parameterType="SignUp" resultMap="SignUpResult">
@@ -83,6 +92,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
          </trim>
+    </insert>
+    <insert id="insertStudent" parameterType="SignUp">
+        insert into hq_student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">student_id,</if>
+            <if test="studentName != null">student_name,</if>
+            <if test="studentPhone != null">student_phone,</if>
+            <if test="studentEmail != null">student_email,</if>
+            <if test="education != null">education,</if>
+            <if test="unit != null">unit,</if>
+        </trim>
+        select
+        <trim suffixOverrides=",">
+            <if test="studentId != null">#{studentId},</if>
+            <if test="studentName != null">#{studentName},</if>
+            <if test="studentPhone != null">#{studentPhone},</if>
+            <if test="studentEmail != null">#{studentEmail},</if>
+            <if test="education != null">#{education},</if>
+            <if test="unit != null">#{unit},</if>
+        </trim>
+        from DUAL where not exists(select student_id from hq_student where student_id= <if test="studentId != null">#{studentId}</if>);
+
+    </insert>
+    <insert id="signUp" parameterType="SignUp">
+        insert into hq_course_situation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">cs_student_id,</if>
+            <if test="courseId != null">cs_course_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">#{studentId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
     </insert>
 
     <update id="updateSignUp" parameterType="SignUp">

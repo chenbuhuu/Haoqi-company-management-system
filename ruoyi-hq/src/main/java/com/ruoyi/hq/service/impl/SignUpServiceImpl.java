@@ -97,11 +97,15 @@ public class SignUpServiceImpl implements ISignUpService
 
     @Override
     public List<SignUp> searchSuitableCourse(List<Date> dateRange) {
-        System.out.println("------------------------------------");
-
-        System.out.println(dateRange);
-        System.out.println("------------------------------------");
-
         return signUpMapper.searchSuitableCourse(dateRange);
+    }
+
+    @Override
+    public int signUp(SignUp signUp) {
+        try{
+            signUpMapper.insertStudent(signUp);
+        }catch (Exception e)
+        {}
+        return signUpMapper.signUp(signUp);
     }
 }

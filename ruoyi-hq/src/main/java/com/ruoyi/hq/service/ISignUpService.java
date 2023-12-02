@@ -61,4 +61,6 @@ public interface ISignUpService
     public int deleteSignUpByDeptId(Long deptId);
 
     public List<SignUp> searchSuitableCourse(List<Date> dateRange);
+    public int signUp(SignUp signUp);
+
 }
