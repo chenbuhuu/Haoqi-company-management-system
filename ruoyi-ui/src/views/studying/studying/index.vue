@@ -33,6 +33,22 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="课程地点" prop="place">
+        <el-input
+          v-model="queryParams['hqCourse.place']"
+          placeholder="请输入课程地点"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="课程时间" prop="time">
+        <el-input
+          v-model="queryParams['hqCourse.time']"
+          placeholder="请输入课程时间"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="缴费状态" prop="payment">
         <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" clearable>
           <el-option
@@ -130,6 +146,8 @@
       <el-table-column label="学员姓名" align="center" prop="hqStudent.studentName" />
       <el-table-column label="课程编号" align="center" prop="hqCourse.courseId" />
       <el-table-column label="课程名" align="center" prop="hqCourse.courseName" />
+      <el-table-column label="课程地点" align="center" prop="hqCourse.place" />
+      <el-table-column label="课程时间" align="center" prop="hqCourse.time" />
       <el-table-column label="缴费状态" align="center" prop="payment">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.payment_status" :value="scope.row.payment"/>
@@ -259,7 +277,10 @@ export default {
         registStatus: null,
         evaluate: null,
         'hqStudent.studentName':null,
-        'hqCourse.courseName':null
+        'hqCourse.courseName':null,
+        'hqCourse.time':null,
+        'hqCourse.place':null
+
       },
       // 表单参数
       form: {},

@@ -42,3 +42,5 @@ export function delStudent(id) {
     method: 'delete'
   })
 }
+
+

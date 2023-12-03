@@ -1,6 +1,15 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form-item label="老师编号" prop="tiTeacherId">
+        <el-input
+          v-model="queryParams.tiTeacherId"
+          placeholder="请输入老师编号"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="老师姓名" prop="tiTeacherId">
       <el-form-item label="课程编号" prop="tiCourseId">
         <el-input
           v-model="queryParams.tiCourseId"
@@ -17,15 +26,22 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="老师编号" prop="tiTeacherId">
-        <el-input
-          v-model="queryParams.tiTeacherId"
-          placeholder="请输入老师编号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="老师姓名" prop="tiTeacherId">
+        <el-form-item label="课程地点" prop="place">
+          <el-input
+            v-model="queryParams['hqCourse.place']"
+            placeholder="请输入课程地点"
+            clearable
+            @keyup.enter.native="handleQuery"
+          />
+        </el-form-item>
+        <el-form-item label="课程时间" prop="time">
+          <el-input
+            v-model="queryParams['hqCourse.time']"
+            placeholder="请输入课程时间"
+            clearable
+            @keyup.enter.native="handleQuery"
+          />
+        </el-form-item>
         <el-input
           v-model="queryParams['hqTeacher.teacherName']"
           placeholder="请输入老师姓名"
@@ -87,10 +103,12 @@
 
     <el-table v-loading="loading" :data="teachingList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="课程编号" align="center" prop="hqCourse.courseId" />
-      <el-table-column label="课程名" align="center" prop="hqCourse.courseName" />
       <el-table-column label="老师编号" align="center" prop="hqTeacher.teacherId" />
       <el-table-column label="老师姓名" align="center" prop="hqTeacher.teacherName" />
+      <el-table-column label="课程编号" align="center" prop="hqCourse.courseId" />
+      <el-table-column label="课程名" align="center" prop="hqCourse.courseName" />
+      <el-table-column label="课程地点" align="center" prop="hqCourse.place" />
+      <el-table-column label="课程时间" align="center" prop="hqCourse.time" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -170,7 +188,9 @@ export default {
         tiCourseId: null,
         tiTeacherId: null,
         'hqTeacher.teacherName':null,
-        'hqCourse.courseName':null
+        'hqCourse.courseName':null,
+        'hqCourse.time':null,
+        'hqCourse.place':null
       },
       // 表单参数
       form: {},

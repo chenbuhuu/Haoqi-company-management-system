@@ -19,10 +19,10 @@ public class SignUp extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 身份证号 */
-    private Long studentId;
+    private Long studentId;//student_id
 
     /** 姓名 */
-    private String studentName;
+    private String studentName;//student_name
     /** 电话 */
     private String studentPhone;
     /** email */

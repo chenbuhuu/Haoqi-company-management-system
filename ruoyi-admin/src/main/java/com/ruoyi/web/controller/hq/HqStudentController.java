@@ -2,16 +2,11 @@ package com.ruoyi.web.controller.hq;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.domain.model.LoginUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -20,6 +15,7 @@ import com.ruoyi.hq.domain.HqStudent;
 import com.ruoyi.hq.service.IHqStudentService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 学员信息管理Controller
@@ -101,4 +97,25 @@ public class HqStudentController extends BaseController
     {
         return toAjax(hqStudentService.deleteHqStudentByIds(ids));
     }
+    @PreAuthorize("@ss.hasPermi('student:student:import')")
+    @Log(title = "学员信息管理", businessType = BusinessType.IMPORT)
+    @PostMapping("/importData")
+    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception
+    {
+        ExcelUtil<HqStudent> util = new ExcelUtil<HqStudent>(HqStudent.class);
+        List<HqStudent> userList = util.importExcel(file.getInputStream());
+        LoginUser loginUser = getLoginUser();
+        String operName = loginUser.getUsername();
+        String message = hqStudentService.importStudent(userList, updateSupport, operName);
+        return AjaxResult.success(message);
+    }
+
+    @PostMapping("/importTemplate")
+    public AjaxResult importTemplate()
+    {
+        ExcelUtil<HqStudent> util = new ExcelUtil<HqStudent>(HqStudent.class);
+        return util.importTemplateExcel("用户数据");
+    }
+
+
 }
