@@ -1,11 +1,12 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="申请课程名" prop="applicationCourseName">
+      <el-form-item label="申请课程名" prop="applicationCourseName"style="white-space: nowrap;">
         <el-input
           v-model="queryParams.applicationCourseName"
           placeholder="请输入申请课程名"
           clearable
+          style="width: 234px; margin-left: 26px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,11 +15,12 @@
           v-model="queryParams.applicant"
           placeholder="请输入申请公司"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="申请结果" prop="result">
-        <el-select v-model="queryParams.result" placeholder="请选择申请结果" clearable>
+        <el-select v-model="queryParams.result" placeholder="请选择申请结果" style="width: 260px" clearable>
           <el-option
             v-for="dict in dict.type.application_check_status"
             :key="dict.value"
@@ -27,9 +29,9 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -110,7 +112,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

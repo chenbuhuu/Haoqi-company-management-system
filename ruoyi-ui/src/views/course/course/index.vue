@@ -6,6 +6,7 @@
           v-model="queryParams.courseName"
           placeholder="请输入课程名称"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,7 +15,7 @@
           v-model="queryParams.time"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择课程时间">
+          placeholder="请选择课程时间"style="width: 260px">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="课程地点" prop="place">
@@ -22,18 +23,20 @@
           v-model="queryParams.place"
           placeholder="请输入课程地点"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="课程单次费用" prop="cost">
+      <el-form-item label="课程单次费用" prop="cost" style="white-space: nowrap;">
         <el-input
           v-model="queryParams.cost"
           placeholder="请输入课程单次费用"
           clearable
+          style="width: 234px; margin-left: 26px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
+      <el-form-item style="display: flex; justify-content: flex-end;">
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
@@ -118,7 +121,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

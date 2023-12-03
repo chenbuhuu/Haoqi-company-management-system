@@ -6,6 +6,7 @@
           v-model="queryParams.studentId"
           placeholder="请输入身份证号"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,6 +15,7 @@
           v-model="queryParams.studentName"
           placeholder="请输入学员姓名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -22,6 +24,7 @@
           v-model="queryParams.studentPhone"
           placeholder="请输入学员电话"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -30,11 +33,12 @@
           v-model="queryParams.studentEmail"
           placeholder="请输入学员邮箱"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="学历" prop="education">
-        <el-select v-model="queryParams.education" placeholder="请选择学历" clearable>
+        <el-select v-model="queryParams.education" placeholder="请选择学历" clearable style="width: 260px">
           <el-option
             v-for="dict in dict.type.hq_student_education"
             :key="dict.value"
@@ -48,12 +52,13 @@
           v-model="queryParams.unit"
           placeholder="请输入所属单位"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 

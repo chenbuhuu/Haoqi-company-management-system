@@ -1,11 +1,12 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="通知课程名" prop="noticeCourseId">
+      <el-form-item label="通知课程名" prop="noticeCourseId"style="white-space: nowrap;">
         <el-input
           v-model="queryParams['hqCourse.courseName']"
           placeholder="请输入通知课程名"
           clearable
+          style="width: 234px;margin-left: 26px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,12 +15,12 @@
           v-model="queryParams.releaseTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择发布时间">
+          placeholder="请选择发布时间" style="width: 260px">
         </el-date-picker>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 

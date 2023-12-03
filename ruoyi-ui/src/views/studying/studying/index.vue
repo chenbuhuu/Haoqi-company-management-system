@@ -1,11 +1,12 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="学生身份证" prop="csStudentId">
+      <el-form-item label="学生身份证" prop="csStudentId"style="white-space: nowrap;">
         <el-input
           v-model="queryParams.csStudentId"
           placeholder="请输入学生身份证"
           clearable
+          style="width: 234px;margin-left: 26px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,6 +15,7 @@
           v-model="queryParams['hqStudent.studentName']"
           placeholder="请输入学员姓名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -22,6 +24,7 @@
           v-model="queryParams.csCourseId"
           placeholder="请输入课程编号"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -30,6 +33,7 @@
           v-model="queryParams['hqCourse.courseName']"
           placeholder="请输入课程名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -50,7 +54,7 @@
         />
       </el-form-item>
       <el-form-item label="缴费状态" prop="payment">
-        <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" clearable>
+        <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" style="width: 260px" clearable>
           <el-option
             v-for="dict in dict.type.payment_status"
             :key="dict.value"
@@ -60,7 +64,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="签到状态" prop="sign">
-        <el-select v-model="queryParams.sign" placeholder="请选择签到状态" clearable>
+        <el-select v-model="queryParams.sign" placeholder="请选择签到状态" style="width: 260px" clearable>
           <el-option
             v-for="dict in dict.type.sign_in_status"
             :key="dict.value"
@@ -70,7 +74,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="报名状态" prop="registStatus">
-        <el-select v-model="queryParams.registStatus" placeholder="请选择报名状态" clearable>
+        <el-select v-model="queryParams.registStatus" placeholder="请选择报名状态" style="width: 260px" clearable>
           <el-option
             v-for="dict in dict.type.sign_up_status"
             :key="dict.value"
@@ -84,12 +88,13 @@
           v-model="queryParams.evaluate"
           placeholder="请输入课程评价"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 

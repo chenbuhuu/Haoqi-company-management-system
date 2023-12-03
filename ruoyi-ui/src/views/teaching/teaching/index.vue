@@ -6,6 +6,7 @@
           v-model="queryParams.tiTeacherId"
           placeholder="请输入老师编号"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,6 +16,7 @@
           v-model="queryParams.tiCourseId"
           placeholder="请输入课程编号"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -23,6 +25,7 @@
           v-model="queryParams['hqCourse.courseName']"
           placeholder="请输入课程名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -46,12 +49,13 @@
           v-model="queryParams['hqTeacher.teacherName']"
           placeholder="请输入老师姓名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="20">
+    <el-row :gutter="10">
       <!--部门数据-->
-      <el-col :span="4" :xs="24">
+      <el-col :span="4" :xs="20">
         <div class="head-container">
           <el-input
             v-model="deptName"
@@ -35,7 +35,7 @@
               v-model="queryParams.userName"
               placeholder="请输入用户名称"
               clearable
-              style="width: 240px"
+              style="width: 140px"
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
@@ -44,7 +44,7 @@
               v-model="queryParams.phonenumber"
               placeholder="请输入手机号码"
               clearable
-              style="width: 240px"
+              style="width: 140px"
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
@@ -53,7 +53,7 @@
               v-model="queryParams.status"
               placeholder="用户状态"
               clearable
-              style="width: 240px"
+              style="width: 100px"
             >
               <el-option
                 v-for="dict in dict.type.sys_normal_disable"
@@ -66,7 +66,7 @@
           <el-form-item label="创建时间">
             <el-date-picker
               v-model="dateRange"
-              style="width: 240px"
+              style="width: 150px"
               value-format="yyyy-MM-dd"
               type="daterange"
               range-separator="-"
@@ -161,7 +161,7 @@
           <el-table-column
             label="操作"
             align="center"
-            width="160"
+            width="135"
             class-name="small-padding fixed-width"
           >
             <template slot-scope="scope" v-if="scope.row.userId !== 1">

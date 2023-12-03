@@ -6,6 +6,7 @@
           v-model="queryParams.teacherName"
           placeholder="请输入讲师姓名"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -13,6 +14,7 @@
         <el-input
           v-model="queryParams.teachingLength"
           placeholder="请输入教龄"
+          style="width: 260px"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -22,6 +24,7 @@
           v-model="queryParams.teacherPhone"
           placeholder="请输入讲师电话"
           clearable
+          style="width: 260px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -29,6 +32,7 @@
         <el-input
           v-model="queryParams.teacherEmail"
           placeholder="请输入讲师邮箱"
+          style="width: 260px"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -37,13 +41,14 @@
         <el-input
           v-model="queryParams.skilledCourse"
           placeholder="请输入擅长课程"
+          style="width: 260px"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item style="display: flex; justify-content: flex-end;">
+        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -121,7 +126,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
