@@ -148,7 +148,7 @@
           <el-input v-model="form.place" placeholder="请输入课程地点" />
         </el-form-item>
         <el-form-item label="课程内容">
-          <editor v-model="form.courseContent" :min-height="192"/>
+          <el-input v-model="form.courseContent" type="textarea"/>
         </el-form-item>
         <el-form-item label="课程单次费用" prop="cost">
           <el-input v-model="form.cost" placeholder="请输入课程单次费用" />

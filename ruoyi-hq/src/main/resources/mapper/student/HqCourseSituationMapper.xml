@@ -79,17 +79,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateHqCourseSituation" parameterType="HqCourseSituation">
         update hq_course_situation
         <trim prefix="SET" suffixOverrides=",">
-            <if test="csStudentId != null">cs_student_id = #{csStudentId},</if>
-            <if test="csCourseId != null">cs_course_id = #{csCourseId},</if>
-            <if test="payment != null">payment = #{payment},</if>
-            <if test="sign != null">sign = #{sign},</if>
-            <if test="registStatus != null">regist_status = #{registStatus},</if>
-            <if test="evaluate != null">evaluate = #{evaluate},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="registStatus != null">regist_status = 1,</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="pay" parameterType="HqCourseSituation">
+        update hq_course_situation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="payment != null">payment = 1,</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="sign" parameterType="HqCourseSituation">
+        update hq_course_situation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sign != null">sign = 1,</if>
         </trim>
         where id = #{id}
     </update>
@@ -104,4 +110,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
 </mapper>

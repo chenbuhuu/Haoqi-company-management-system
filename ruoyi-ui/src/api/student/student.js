@@ -35,6 +35,8 @@ export function updateStudent(data) {
   })
 }
 
+
+
 // 删除学员信息管理
 export function delStudent(id) {
   return request({

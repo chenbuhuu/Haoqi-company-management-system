@@ -34,6 +34,23 @@ export function updateStudying(data) {
     data: data
   })
 }
+// 缴费
+export function pay(data) {
+  return request({
+    url: '/studying/studying/pay',
+    method: 'put',
+    data: data
+  })
+}
+
+// 报名
+export function signIn(data) {
+  return request({
+    url: '/studying/studying/sign',
+    method: 'put',
+    data: data
+  })
+}
 
 // 删除学员上课信息管理
 export function delStudying(id) {

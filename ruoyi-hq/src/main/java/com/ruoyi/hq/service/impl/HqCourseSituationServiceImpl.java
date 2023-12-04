@@ -10,19 +10,19 @@ import com.ruoyi.hq.service.IHqCourseSituationService;
 
 /**
  * 学员上课信息管理Service业务层处理
- * 
+ *
  * @author chenxinyang
  * @date 2023-11-29
  */
 @Service
-public class HqCourseSituationServiceImpl implements IHqCourseSituationService 
+public class HqCourseSituationServiceImpl implements IHqCourseSituationService
 {
     @Autowired
     private HqCourseSituationMapper hqCourseSituationMapper;
 
     /**
      * 查询学员上课信息管理
-     * 
+     *
      * @param id 学员上课信息管理主键
      * @return 学员上课信息管理
      */
@@ -34,7 +34,7 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
 
     /**
      * 查询学员上课信息管理列表
-     * 
+     *
      * @param hqCourseSituation 学员上课信息管理
      * @return 学员上课信息管理
      */
@@ -46,7 +46,7 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
 
     /**
      * 新增学员上课信息管理
-     * 
+     *
      * @param hqCourseSituation 学员上课信息管理
      * @return 结果
      */
@@ -59,7 +59,7 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
 
     /**
      * 修改学员上课信息管理
-     * 
+     *
      * @param hqCourseSituation 学员上课信息管理
      * @return 结果
      */
@@ -70,9 +70,21 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
         return hqCourseSituationMapper.updateHqCourseSituation(hqCourseSituation);
     }
 
+    @Override
+    public int pay(HqCourseSituation hqCourseSituation) {
+        hqCourseSituation.setUpdateTime(DateUtils.getNowDate());
+        return hqCourseSituationMapper.pay(hqCourseSituation);
+    }
+
+    @Override
+    public int sign(HqCourseSituation hqCourseSituation) {
+        hqCourseSituation.setUpdateTime(DateUtils.getNowDate());
+        return hqCourseSituationMapper.sign(hqCourseSituation);
+    }
+
     /**
      * 批量删除学员上课信息管理
-     * 
+     *
      * @param ids 需要删除的学员上课信息管理主键
      * @return 结果
      */
@@ -84,7 +96,7 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
 
     /**
      * 删除学员上课信息管理信息
-     * 
+     *
      * @param id 学员上课信息管理主键
      * @return 结果
      */

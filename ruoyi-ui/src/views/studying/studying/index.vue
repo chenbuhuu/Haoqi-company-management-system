@@ -100,25 +100,25 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['studying:studying:add']"
-        >新增</el-button>
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-plus"-->
+<!--          size="mini"-->
+<!--          @click="handleAdd"-->
+<!--          v-hasPermi="['studying:studying:add']"-->
+<!--        >新增</el-button>-->
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['studying:studying:edit']"
-        >修改</el-button>
+<!--        <el-button-->
+<!--          type="success"-->
+<!--          plain-->
+<!--          icon="el-icon-edit"-->
+<!--          size="mini"-->
+<!--          :disabled="single"-->
+<!--          @click="handleUpdate"-->
+<!--          v-hasPermi="['studying:studying:edit']"-->
+<!--        >审批</el-button>-->
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -171,21 +171,44 @@
       <el-table-column label="课程评价" align="center" prop="evaluate" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['studying:studying:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['studying:studying:remove']"
-          >删除</el-button>
+          <div style="display: flex; align-items: center;">
+            <el-button
+              v-if="scope.row.registStatus == 0"
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="handleUpdate(scope.row)"
+              v-hasPermi="['studying:studying:edit']"
+            >审批</el-button></div>
+          <div style="display: flex; align-items: center;">
+            <el-button
+              v-if="scope.row.payment == 0"
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="pay(scope.row)"
+            >缴费</el-button>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <el-button
+              v-if="scope.row.sign == 0"
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="signIn(scope.row)"
+            >签到</el-button>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-delete"
+              @click="handleDelete(scope.row)"
+              v-hasPermi="['studying:studying:remove']"
+            >删除</el-button>
+          </div>
         </template>
+
       </el-table-column>
     </el-table>
 
@@ -246,7 +269,7 @@
 </template>
 
 <script>
-import { listStudying, getStudying, delStudying, addStudying, updateStudying } from "@/api/studying/studying";
+import { listStudying, getStudying, delStudying, addStudying, updateStudying ,pay,signIn} from "@/api/studying/studying";
 
 export default {
   name: "Studying",
@@ -360,12 +383,44 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
+      console.log(row)
       this.reset();
-      const id = row.id || this.ids
+      const id = row.id
       getStudying(id).then(response => {
         this.form = response.data;
-        this.open = true;
-        this.title = "修改学员上课信息管理";
+        updateStudying(this.form).then(response => {
+          this.$modal.msgSuccess("审批成功");
+          this.reset();
+          this.getList();
+        });
+      });
+    },
+    /**缴费按钮*/
+    pay(row){
+      console.log(row)
+      this.reset();
+      const id = row.id
+      getStudying(id).then(response => {
+        this.form = response.data;
+        pay(this.form).then(response => {
+          this.$modal.msgSuccess("缴费成功");
+          this.reset();
+          this.getList();
+        });
+      });
+    },
+    /**缴费按钮*/
+    signIn(row){
+      console.log(row)
+      this.reset();
+      const id = row.id
+      getStudying(id).then(response => {
+        this.form = response.data;
+        signIn(this.form).then(response => {
+          this.$modal.msgSuccess("签到成功");
+          this.reset();
+          this.getList();
+        });
       });
     },
     /** 提交按钮 */
@@ -374,7 +429,7 @@ export default {
         if (valid) {
           if (this.form.id != null) {
             updateStudying(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("审批成功");
               this.open = false;
               this.getList();
             });
