@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'show':show}" class="header-search">
+<!--  <div :class="{'show':show}" class="header-search">
     <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
     <el-select
       ref="headerSearchSelect"
@@ -14,7 +14,7 @@
     >
       <el-option v-for="option in options" :key="option.item.path" :value="option.item" :label="option.item.title.join(' > ')" />
     </el-select>
-  </div>
+  </div>-->
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
-  <div>
+<!--  <div>
     <svg-icon icon-class="question" @click="goto" />
-  </div>
+  </div>-->
 </template>
 
 <script>
-export default {
+/*export default {
   name: 'RuoYiDoc',
   data() {
     return {
@@ -17,5 +17,5 @@ export default {
       window.open(this.url)
     }
   }
-}
+}*/
 </script>
