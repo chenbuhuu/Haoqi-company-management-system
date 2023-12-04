@@ -6,7 +6,7 @@
           v-model="queryParams.csStudentId"
           placeholder="请输入学生身份证"
           clearable
-          style="width: 234px;margin-left: 26px;"
+          style="width: 230px;margin-left: 20px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,7 +15,7 @@
           v-model="queryParams['hqStudent.studentName']"
           placeholder="请输入学员姓名"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -24,7 +24,7 @@
           v-model="queryParams.csCourseId"
           placeholder="请输入课程编号"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -33,7 +33,7 @@
           v-model="queryParams['hqCourse.courseName']"
           placeholder="请输入课程名"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -42,6 +42,7 @@
           v-model="queryParams['hqCourse.place']"
           placeholder="请输入课程地点"
           clearable
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -50,11 +51,12 @@
           v-model="queryParams['hqCourse.time']"
           placeholder="请输入课程时间"
           clearable
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="缴费状态" prop="payment">
-        <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" style="width: 260px" clearable>
+        <el-select v-model="queryParams.payment" placeholder="请选择缴费状态" style="width: 250px" clearable>
           <el-option
             v-for="dict in dict.type.payment_status"
             :key="dict.value"
@@ -64,7 +66,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="签到状态" prop="sign">
-        <el-select v-model="queryParams.sign" placeholder="请选择签到状态" style="width: 260px" clearable>
+        <el-select v-model="queryParams.sign" placeholder="请选择签到状态" style="width: 250px" clearable>
           <el-option
             v-for="dict in dict.type.sign_in_status"
             :key="dict.value"
@@ -74,7 +76,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="报名状态" prop="registStatus">
-        <el-select v-model="queryParams.registStatus" placeholder="请选择报名状态" style="width: 260px" clearable>
+        <el-select v-model="queryParams.registStatus" placeholder="请选择报名状态" style="width: 250px" clearable>
           <el-option
             v-for="dict in dict.type.sign_up_status"
             :key="dict.value"
@@ -88,7 +90,7 @@
           v-model="queryParams.evaluate"
           placeholder="请输入课程评价"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>

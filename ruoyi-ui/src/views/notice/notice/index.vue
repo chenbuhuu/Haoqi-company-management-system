@@ -6,7 +6,7 @@
           v-model="queryParams['hqCourse.courseName']"
           placeholder="请输入通知课程名"
           clearable
-          style="width: 234px;margin-left: 26px;"
+          style="width: 230px;margin-left: 20px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,7 +15,7 @@
           v-model="queryParams.releaseTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择发布时间" style="width: 260px">
+          placeholder="请选择发布时间" style="width: 250px">
         </el-date-picker>
       </el-form-item>
       <el-form-item style="display: flex; justify-content: flex-end;">

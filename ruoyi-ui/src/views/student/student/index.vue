@@ -6,7 +6,7 @@
           v-model="queryParams.studentId"
           placeholder="请输入身份证号"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,7 +15,7 @@
           v-model="queryParams.studentName"
           placeholder="请输入学员姓名"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -24,7 +24,7 @@
           v-model="queryParams.studentPhone"
           placeholder="请输入学员电话"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -33,7 +33,7 @@
           v-model="queryParams.studentEmail"
           placeholder="请输入学员邮箱"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -52,7 +52,7 @@
           v-model="queryParams.unit"
           placeholder="请输入所属单位"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>

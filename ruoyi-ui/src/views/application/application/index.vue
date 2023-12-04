@@ -6,7 +6,7 @@
           v-model="queryParams.applicationCourseName"
           placeholder="请输入申请课程名"
           clearable
-          style="width: 234px; margin-left: 26px;"
+          style="width: 230px; margin-left: 20px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,12 +15,12 @@
           v-model="queryParams.applicant"
           placeholder="请输入申请公司"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="申请结果" prop="result">
-        <el-select v-model="queryParams.result" placeholder="请选择申请结果" style="width: 260px" clearable>
+        <el-select v-model="queryParams.result" placeholder="请选择申请结果" style="width: 250px" clearable>
           <el-option
             v-for="dict in dict.type.application_check_status"
             :key="dict.value"

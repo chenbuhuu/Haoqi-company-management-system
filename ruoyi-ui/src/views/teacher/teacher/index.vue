@@ -6,7 +6,7 @@
           v-model="queryParams.teacherName"
           placeholder="请输入讲师姓名"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -14,7 +14,7 @@
         <el-input
           v-model="queryParams.teachingLength"
           placeholder="请输入教龄"
-          style="width: 260px"
+          style="width: 250px"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -24,7 +24,7 @@
           v-model="queryParams.teacherPhone"
           placeholder="请输入讲师电话"
           clearable
-          style="width: 260px"
+          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -32,7 +32,7 @@
         <el-input
           v-model="queryParams.teacherEmail"
           placeholder="请输入讲师邮箱"
-          style="width: 260px"
+          style="width: 250px"
           clearable
           @keyup.enter.native="handleQuery"
         />
