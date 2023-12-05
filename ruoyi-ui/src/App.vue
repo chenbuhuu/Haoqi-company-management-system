@@ -1,9 +1,13 @@
 <template>
   <div id="app">
+
     <router-view />
     <theme-picker />
+
+
   </div>
 </template>
+
 
 <script>
 import ThemePicker from "@/components/ThemePicker";
