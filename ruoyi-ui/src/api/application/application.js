@@ -34,6 +34,14 @@ export function updateApplication(data) {
     data: data
   })
 }
+// 审核
+export function commit(data) {
+  return request({
+    url: '/application/application/commit',
+    method: 'put',
+    data: data
+  })
+}
 
 // 删除培训申请管理
 export function delApplication(applicationId) {

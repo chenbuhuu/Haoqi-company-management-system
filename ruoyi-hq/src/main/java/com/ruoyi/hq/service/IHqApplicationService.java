@@ -5,15 +5,15 @@ import com.ruoyi.hq.domain.HqApplication;
 
 /**
  * 培训申请管理Service接口
- * 
+ *
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-12-05
  */
-public interface IHqApplicationService 
+public interface IHqApplicationService
 {
     /**
      * 查询培训申请管理
-     * 
+     *
      * @param applicationId 培训申请管理主键
      * @return 培训申请管理
      */
@@ -21,7 +21,7 @@ public interface IHqApplicationService
 
     /**
      * 查询培训申请管理列表
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 培训申请管理集合
      */
@@ -29,7 +29,7 @@ public interface IHqApplicationService
 
     /**
      * 新增培训申请管理
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 结果
      */
@@ -37,15 +37,16 @@ public interface IHqApplicationService
 
     /**
      * 修改培训申请管理
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 结果
      */
     public int updateHqApplication(HqApplication hqApplication);
+    public int commit(HqApplication hqApplication);
 
     /**
      * 批量删除培训申请管理
-     * 
+     *
      * @param applicationIds 需要删除的培训申请管理主键集合
      * @return 结果
      */
@@ -53,7 +54,7 @@ public interface IHqApplicationService
 
     /**
      * 删除培训申请管理信息
-     * 
+     *
      * @param applicationId 培训申请管理主键
      * @return 结果
      */

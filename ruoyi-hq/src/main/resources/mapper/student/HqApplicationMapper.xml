@@ -3,13 +3,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.hq.mapper.HqApplicationMapper">
-    
+
     <resultMap type="HqApplication" id="HqApplicationResult">
         <result property="applicationId"    column="application_id"    />
         <result property="applicationCourseName"    column="application_course_name"    />
         <result property="applicationContent"    column="application_content"    />
         <result property="applicant"    column="applicant"    />
         <result property="result"    column="result"    />
+        <result property="executor"    column="executor"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
@@ -18,24 +19,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectHqApplicationVo">
-        select application_id, application_course_name, application_content, applicant, result, create_by, create_time, update_by, update_time, remark from hq_application
+        select application_id, application_course_name, application_content, applicant, result, executor, create_by, create_time, update_by, update_time, remark from hq_application
     </sql>
 
     <select id="selectHqApplicationList" parameterType="HqApplication" resultMap="HqApplicationResult">
         <include refid="selectHqApplicationVo"/>
-        <where>  
+        <where>
             <if test="applicationCourseName != null  and applicationCourseName != ''"> and application_course_name like concat('%', #{applicationCourseName}, '%')</if>
-            <if test="applicationContent != null  and applicationContent != ''"> and application_content = #{applicationContent}</if>
-            <if test="applicant != null  and applicant != ''"> and applicant = #{applicant}</if>
+            <if test="applicationContent != null  and applicationContent != ''"> and application_content like concat('%', #{applicationContent}, '%')</if>
+            <if test="applicant != null  and applicant != ''"> and applicant like concat('%', #{applicant}, '%')</if>
             <if test="result != null "> and result = #{result}</if>
+            <if test="executor != null  and executor != ''"> and executor like concat('%', #{executor}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectHqApplicationByApplicationId" parameterType="Long" resultMap="HqApplicationResult">
         <include refid="selectHqApplicationVo"/>
         where application_id = #{applicationId}
     </select>
-        
+
     <insert id="insertHqApplication" parameterType="HqApplication" useGeneratedKeys="true" keyProperty="applicationId">
         insert into hq_application
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -43,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="applicationContent != null and applicationContent != ''">application_content,</if>
             <if test="applicant != null and applicant != ''">applicant,</if>
             <if test="result != null">result,</if>
+            <if test="executor != null">executor,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
@@ -54,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="applicationContent != null and applicationContent != ''">#{applicationContent},</if>
             <if test="applicant != null and applicant != ''">#{applicant},</if>
             <if test="result != null">#{result},</if>
+            <if test="executor != null">#{executor},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
@@ -65,15 +69,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateHqApplication" parameterType="HqApplication">
         update hq_application
         <trim prefix="SET" suffixOverrides=",">
-            <if test="applicationCourseName != null and applicationCourseName != ''">application_course_name = #{applicationCourseName},</if>
-            <if test="applicationContent != null and applicationContent != ''">application_content = #{applicationContent},</if>
-            <if test="applicant != null and applicant != ''">applicant = #{applicant},</if>
-            <if test="result != null">result = #{result},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="remark != null">remark = #{remark},</if>
+            <if test="executor != null">executor = #{executor},</if>
+        </trim>
+        where application_id = #{applicationId}
+    </update>
+
+    <update id="commit" parameterType="HqApplication">
+        update hq_application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="result != null">result = 1,</if>
         </trim>
         where application_id = #{applicationId}
     </update>
@@ -83,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteHqApplicationByApplicationIds" parameterType="String">
-        delete from hq_application where application_id in 
+        delete from hq_application where application_id in
         <foreach item="applicationId" collection="array" open="(" separator="," close=")">
             #{applicationId}
         </foreach>

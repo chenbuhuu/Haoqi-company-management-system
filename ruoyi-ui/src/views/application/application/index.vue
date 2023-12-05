@@ -1,12 +1,11 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="申请课程名" prop="applicationCourseName"style="white-space: nowrap;">
+      <el-form-item label="申请课程名" prop="applicationCourseName">
         <el-input
           v-model="queryParams.applicationCourseName"
           placeholder="请输入申请课程名"
           clearable
-          style="width: 230px; margin-left: 20px;"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -15,12 +14,11 @@
           v-model="queryParams.applicant"
           placeholder="请输入申请公司"
           clearable
-          style="width: 250px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item label="申请结果" prop="result">
-        <el-select v-model="queryParams.result" placeholder="请选择申请结果" style="width: 250px" clearable>
+        <el-select v-model="queryParams.result" placeholder="请选择申请结果" clearable>
           <el-option
             v-for="dict in dict.type.application_check_status"
             :key="dict.value"
@@ -29,34 +27,34 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item style="display: flex; justify-content: flex-end;">
-        <el-button type="primary" icon="el-icon-search" size="mini"  @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini"  @click="resetQuery">重置</el-button>
+      <el-form-item label="执行人" prop="executor">
+        <el-input
+          v-model="queryParams.executor"
+          placeholder="请输入执行人"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['application:application:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['application:application:edit']"
-        >修改</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-plus"-->
+<!--          size="mini"-->
+<!--          @click="handleAdd"-->
+<!--          v-hasPermi="['application:application:add']"-->
+<!--        >新增</el-button>-->
+<!--      </el-col>-->分配
+<!--      <el-col :span="1.5">-->
+
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -92,16 +90,32 @@
           <dict-tag :options="dict.type.application_check_status" :value="scope.row.result"/>
         </template>
       </el-table-column>
+      <el-table-column label="执行人" align="center" prop="executor" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <div style="display: flex; align-items: center;">
           <el-button
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['application:application:edit']"
-          >修改</el-button>
+          >分配执行人</el-button>
+          </div>
+
+            <div style="display: flex; align-items: center;">
+          <el-button
+            v-if="scope.row.result == 0"
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="commit(scope.row)"
+            v-hasPermi="['application:application:edit']"
+          >审核</el-button>
+            </div>
+
+              <div style="display: flex; align-items: center;">
           <el-button
             size="mini"
             type="text"
@@ -109,6 +123,7 @@
             @click="handleDelete(scope.row)"
             v-hasPermi="['application:application:remove']"
           >删除</el-button>
+              </div>
         </template>
       </el-table-column>
     </el-table>
@@ -124,18 +139,21 @@
     <!-- 添加或修改培训申请管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="申请课程名" prop="applicationCourseName">
-          <el-input v-model="form.applicationCourseName" placeholder="请输入申请课程名" />
+<!--        <el-form-item label="申请课程名" prop="applicationCourseName">-->
+<!--          <el-input v-model="form.applicationCourseName" placeholder="请输入申请课程名" />-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="申请课程内容" prop="applicationContent">-->
+<!--          <el-input v-model="form.applicationContent" type="textarea" placeholder="请输入内容" />-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="申请公司" prop="applicant">-->
+<!--          <el-input v-model="form.applicant" placeholder="请输入申请公司" />-->
+<!--        </el-form-item>-->
+        <el-form-item label="执行人" prop="executor">
+          <el-input v-model="form.executor" placeholder="请输入执行人" />
         </el-form-item>
-        <el-form-item label="申请课程内容" prop="applicationContent">
-          <el-input v-model="form.applicationContent" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
-        <el-form-item label="申请公司" prop="applicant">
-          <el-input v-model="form.applicant" placeholder="请输入申请公司" />
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
+<!--        <el-form-item label="备注" prop="remark">-->
+<!--          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />-->
+<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -146,7 +164,7 @@
 </template>
 
 <script>
-import { listApplication, getApplication, delApplication, addApplication, updateApplication } from "@/api/application/application";
+import { listApplication, getApplication, delApplication, addApplication, updateApplication ,commit} from "@/api/application/application";
 
 export default {
   name: "Application",
@@ -179,6 +197,7 @@ export default {
         applicationContent: null,
         applicant: null,
         result: null,
+        executor: null,
       },
       // 表单参数
       form: {},
@@ -222,6 +241,7 @@ export default {
         applicationContent: null,
         applicant: null,
         result: null,
+        executor: null,
         createBy: null,
         createTime: null,
         updateBy: null,
@@ -255,11 +275,24 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const applicationId = row.applicationId || this.ids
+      const applicationId = row.applicationId
       getApplication(applicationId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改培训申请管理";
+        this.title = "分配执行人";
+      });
+    },
+    /** 审核按钮操作 */
+    commit(row) {
+      this.reset();
+      const applicationId = row.applicationId
+      getApplication(applicationId).then(response => {
+        this.form = response.data;
+        commit(this.form).then(response=>{
+          this.$modal.msgSuccess("审核成功");
+          this.reset();
+          this.getList();
+        })
       });
     },
     /** 提交按钮 */

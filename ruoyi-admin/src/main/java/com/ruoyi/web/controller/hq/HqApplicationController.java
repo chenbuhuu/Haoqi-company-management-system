@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 培训申请管理Controller
  *
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-12-05
  */
 @RestController
 @RequestMapping("/application/application")
@@ -89,6 +89,13 @@ public class HqApplicationController extends BaseController
     public AjaxResult edit(@RequestBody HqApplication hqApplication)
     {
         return toAjax(hqApplicationService.updateHqApplication(hqApplication));
+    }
+    @PreAuthorize("@ss.hasPermi('application:application:edit')")
+    @Log(title = "培训申请管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/commit")
+    public AjaxResult commit(@RequestBody HqApplication hqApplication)
+    {
+        return toAjax(hqApplicationService.commit(hqApplication));
     }
 
     /**

@@ -10,19 +10,19 @@ import com.ruoyi.hq.service.IHqApplicationService;
 
 /**
  * 培训申请管理Service业务层处理
- * 
+ *
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-12-05
  */
 @Service
-public class HqApplicationServiceImpl implements IHqApplicationService 
+public class HqApplicationServiceImpl implements IHqApplicationService
 {
     @Autowired
     private HqApplicationMapper hqApplicationMapper;
 
     /**
      * 查询培训申请管理
-     * 
+     *
      * @param applicationId 培训申请管理主键
      * @return 培训申请管理
      */
@@ -34,7 +34,7 @@ public class HqApplicationServiceImpl implements IHqApplicationService
 
     /**
      * 查询培训申请管理列表
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 培训申请管理
      */
@@ -46,7 +46,7 @@ public class HqApplicationServiceImpl implements IHqApplicationService
 
     /**
      * 新增培训申请管理
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 结果
      */
@@ -59,7 +59,7 @@ public class HqApplicationServiceImpl implements IHqApplicationService
 
     /**
      * 修改培训申请管理
-     * 
+     *
      * @param hqApplication 培训申请管理
      * @return 结果
      */
@@ -70,9 +70,15 @@ public class HqApplicationServiceImpl implements IHqApplicationService
         return hqApplicationMapper.updateHqApplication(hqApplication);
     }
 
+    @Override
+    public int commit(HqApplication hqApplication) {
+        hqApplication.setUpdateTime(DateUtils.getNowDate());
+        return hqApplicationMapper.commit(hqApplication);
+    }
+
     /**
      * 批量删除培训申请管理
-     * 
+     *
      * @param applicationIds 需要删除的培训申请管理主键
      * @return 结果
      */
@@ -84,7 +90,7 @@ public class HqApplicationServiceImpl implements IHqApplicationService
 
     /**
      * 删除培训申请管理信息
-     * 
+     *
      * @param applicationId 培训申请管理主键
      * @return 结果
      */

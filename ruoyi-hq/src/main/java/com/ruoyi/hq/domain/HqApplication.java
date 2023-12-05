@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 培训申请管理对象 hq_application
  * 
  * @author chenxinyang
- * @date 2023-11-28
+ * @date 2023-12-05
  */
 public class HqApplication extends BaseEntity
 {
@@ -33,6 +33,10 @@ public class HqApplication extends BaseEntity
     /** 申请结果 */
     @Excel(name = "申请结果")
     private Integer result;
+
+    /** 执行人 */
+    @Excel(name = "执行人")
+    private String executor;
 
     public void setApplicationId(Long applicationId) 
     {
@@ -79,6 +83,15 @@ public class HqApplication extends BaseEntity
     {
         return result;
     }
+    public void setExecutor(String executor) 
+    {
+        this.executor = executor;
+    }
+
+    public String getExecutor() 
+    {
+        return executor;
+    }
 
     @Override
     public String toString() {
@@ -88,6 +101,7 @@ public class HqApplication extends BaseEntity
             .append("applicationContent", getApplicationContent())
             .append("applicant", getApplicant())
             .append("result", getResult())
+            .append("executor", getExecutor())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
