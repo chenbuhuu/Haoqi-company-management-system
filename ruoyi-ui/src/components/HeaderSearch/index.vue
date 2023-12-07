@@ -1,5 +1,5 @@
 <template>
-<!--  <div :class="{'show':show}" class="header-search">
+  <div :class="{'show':show}" class="header-search">
     <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
     <el-select
       ref="headerSearchSelect"
@@ -14,7 +14,7 @@
     >
       <el-option v-for="option in options" :key="option.item.path" :value="option.item" :label="option.item.title.join(' > ')" />
     </el-select>
-  </div>-->
+  </div>
 </template>
 
 <script>
@@ -71,12 +71,17 @@ export default {
     },
     change(val) {
       const path = val.path;
+      const query = val.query;
       if(this.ishttp(val.path)) {
         // http(s):// 路径新窗口打开
         const pindex = path.indexOf("http");
         window.open(path.substr(pindex, path.length), "_blank");
       } else {
-        this.$router.push(val.path)
+        if (query) {
+          this.$router.push({ path: path, query: JSON.parse(query) });
+        } else {
+          this.$router.push(path)
+        }
       }
       this.search = ''
       this.options = []
@@ -122,6 +127,10 @@ export default {
             // special case: need to exclude parent router without redirect
             res.push(data)
           }
+        }
+
+        if (router.query) {
+          data.query = router.query
         }
 
         // recursive child routes
