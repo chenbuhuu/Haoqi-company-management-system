@@ -27,15 +27,24 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="课程单次费用" prop="cost" style="white-space: nowrap;">
-        <el-input
-          v-model="queryParams.cost"
-          placeholder="请输入课程单次费用"
-          clearable
-          style="width: 220px; margin-left: 30px;"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+<!--      <el-form-item label="课程单次费用" prop="cost" style="white-space: nowrap;">-->
+<!--        <el-input-->
+<!--          v-model="queryParams.cost"-->
+<!--          placeholder="请输入课程单次费用"-->
+<!--          clearable-->
+<!--          style="width: 220px; margin-left: 30px;"-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+<!--      </el-form-item>-->
+            <el-form-item label="执行人" prop="executor" style="white-space: nowrap;">
+              <el-input
+                v-model="queryParams.executor"
+                placeholder="请输入执行人"
+                clearable
+                style="width: 220px; margin-left: 30px;"
+                @keyup.enter.native="handleQuery"
+              />
+            </el-form-item>
       <el-form-item style="display: flex; justify-content: flex-end;">
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -53,17 +62,17 @@
           v-hasPermi="['course:course:add']"
         >新增</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['course:course:edit']"
-        >修改</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="success"-->
+<!--          plain-->
+<!--          icon="el-icon-edit"-->
+<!--          size="mini"-->
+<!--          :disabled="single"-->
+<!--          @click="handleUpdate"-->
+<!--          v-hasPermi="['course:course:edit']"-->
+<!--        >修改</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -101,6 +110,7 @@
       <el-table-column label="课程内容" align="center" prop="courseContent" />
       <el-table-column label="课程单次费用" align="center" prop="cost" />
       <el-table-column label="总收入" align="center" prop="totalIncome" />
+      <el-table-column label="执行人" align="center" prop="executor" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -199,6 +209,7 @@ export default {
         place: null,
         courseContent: null,
         cost: null,
+        executor:null
       },
       // 表单参数
       form: {},

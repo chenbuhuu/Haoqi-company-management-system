@@ -10,7 +10,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 课程计划管理对象 hq_course
- * 
+ *
  * @author chenxinyang
  * @date 2023-11-28
  */
@@ -46,66 +46,78 @@ public class HqCourse extends BaseEntity
     @Excel(name = "总收入")
     private Long totalIncome;
 
-    public void setCourseId(Long courseId) 
+    /** 执行人 */
+    @Excel(name = "执行人")
+    private String executor;
+
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
+    public void setCourseId(Long courseId)
     {
         this.courseId = courseId;
     }
 
-    public Long getCourseId() 
+    public Long getCourseId()
     {
         return courseId;
     }
-    public void setCourseName(String courseName) 
+    public void setCourseName(String courseName)
     {
         this.courseName = courseName;
     }
 
-    public String getCourseName() 
+    public String getCourseName()
     {
         return courseName;
     }
-    public void setTime(Date time) 
+    public void setTime(Date time)
     {
         this.time = time;
     }
 
-    public Date getTime() 
+    public Date getTime()
     {
         return time;
     }
-    public void setPlace(String place) 
+    public void setPlace(String place)
     {
         this.place = place;
     }
 
-    public String getPlace() 
+    public String getPlace()
     {
         return place;
     }
-    public void setCourseContent(String courseContent) 
+    public void setCourseContent(String courseContent)
     {
         this.courseContent = courseContent;
     }
 
-    public String getCourseContent() 
+    public String getCourseContent()
     {
         return courseContent;
     }
-    public void setCost(BigDecimal cost) 
+    public void setCost(BigDecimal cost)
     {
         this.cost = cost;
     }
 
-    public BigDecimal getCost() 
+    public BigDecimal getCost()
     {
         return cost;
     }
-    public void setTotalIncome(Long totalIncome) 
+    public void setTotalIncome(Long totalIncome)
     {
         this.totalIncome = totalIncome;
     }
 
-    public Long getTotalIncome() 
+    public Long getTotalIncome()
     {
         return totalIncome;
     }
@@ -120,6 +132,8 @@ public class HqCourse extends BaseEntity
             .append("courseContent", getCourseContent())
             .append("cost", getCost())
             .append("totalIncome", getTotalIncome())
+                .append("executor", getExecutor())
+
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
