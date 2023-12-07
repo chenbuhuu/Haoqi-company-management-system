@@ -44,6 +44,7 @@ public interface HqCourseSituationMapper
     public int updateHqCourseSituation(HqCourseSituation hqCourseSituation);
     public int pay(HqCourseSituation hqCourseSituation);
     public int sign(HqCourseSituation hqCourseSituation);
+    public int evaluate(HqCourseSituation hqCourseSituation);
 
     /**
      * 删除学员上课信息管理

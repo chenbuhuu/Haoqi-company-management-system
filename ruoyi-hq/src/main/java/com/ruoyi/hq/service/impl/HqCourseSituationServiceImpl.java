@@ -82,6 +82,12 @@ public class HqCourseSituationServiceImpl implements IHqCourseSituationService
         return hqCourseSituationMapper.sign(hqCourseSituation);
     }
 
+    @Override
+    public int evaluate(HqCourseSituation hqCourseSituation) {
+        hqCourseSituation.setUpdateTime(DateUtils.getNowDate());
+        return hqCourseSituationMapper.evaluate(hqCourseSituation);
+    }
+
     /**
      * 批量删除学员上课信息管理
      *

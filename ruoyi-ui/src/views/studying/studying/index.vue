@@ -189,6 +189,7 @@
               type="text"
               icon="el-icon-edit"
               @click="pay(scope.row)"
+              v-hasPermi="['studying:studying:edit']"
             >缴费</el-button>
           </div>
           <div style="display: flex; align-items: center;">
@@ -198,8 +199,17 @@
               type="text"
               icon="el-icon-edit"
               @click="signIn(scope.row)"
+              v-hasPermi="['studying:studying:edit']"
             >签到</el-button>
           </div>
+          <div style="display: flex; align-items: center;">
+            <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="evaluate(scope.row)"
+              v-hasPermi="['studying:studying:edit']"
+            >课程评价</el-button></div>
           <div style="display: flex; align-items: center;">
             <el-button
               size="mini"
@@ -225,39 +235,39 @@
     <!-- 添加或修改学员上课信息管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="学生身份证" prop="csStudentId">
-          <el-input v-model="form.csStudentId" placeholder="请输入学生身份证" />
-        </el-form-item>
-        <el-form-item label="课程编号" prop="csCourseId">
-          <el-input v-model="form.csCourseId" placeholder="请输入课程编号" />
-        </el-form-item>
-        <el-form-item label="缴费状态" prop="payment">
-          <el-radio-group v-model="form.payment">
-            <el-radio
-              v-for="dict in dict.type.payment_status"
-              :key="dict.value"
-              :label="parseInt(dict.value)"
-            >{{dict.label}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="签到状态" prop="sign">
-          <el-radio-group v-model="form.sign">
-            <el-radio
-              v-for="dict in dict.type.sign_in_status"
-              :key="dict.value"
-              :label="parseInt(dict.value)"
-            >{{dict.label}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="报名状态" prop="registStatus">
-          <el-radio-group v-model="form.registStatus">
-            <el-radio
-              v-for="dict in dict.type.sign_up_status"
-              :key="dict.value"
-              :label="parseInt(dict.value)"
-            >{{dict.label}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
+<!--        <el-form-item label="学生身份证" prop="csStudentId">-->
+<!--          <el-input v-model="form.csStudentId" placeholder="请输入学生身份证" />-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="课程编号" prop="csCourseId">-->
+<!--          <el-input v-model="form.csCourseId" placeholder="请输入课程编号" />-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="缴费状态" prop="payment">-->
+<!--          <el-radio-group v-model="form.payment">-->
+<!--            <el-radio-->
+<!--              v-for="dict in dict.type.payment_status"-->
+<!--              :key="dict.value"-->
+<!--              :label="parseInt(dict.value)"-->
+<!--            >{{dict.label}}</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="签到状态" prop="sign">-->
+<!--          <el-radio-group v-model="form.sign">-->
+<!--            <el-radio-->
+<!--              v-for="dict in dict.type.sign_in_status"-->
+<!--              :key="dict.value"-->
+<!--              :label="parseInt(dict.value)"-->
+<!--            >{{dict.label}}</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="报名状态" prop="registStatus">-->
+<!--          <el-radio-group v-model="form.registStatus">-->
+<!--            <el-radio-->
+<!--              v-for="dict in dict.type.sign_up_status"-->
+<!--              :key="dict.value"-->
+<!--              :label="parseInt(dict.value)"-->
+<!--            >{{dict.label}}</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
         <el-form-item label="课程评价" prop="evaluate">
           <el-input v-model="form.evaluate" placeholder="请输入课程评价" />
         </el-form-item>
@@ -271,7 +281,7 @@
 </template>
 
 <script>
-import { listStudying, getStudying, delStudying, addStudying, updateStudying ,pay,signIn} from "@/api/studying/studying";
+import { listStudying, getStudying, delStudying, addStudying, updateStudying ,pay,signIn,evaluate} from "@/api/studying/studying";
 
 export default {
   name: "Studying",
@@ -411,7 +421,7 @@ export default {
         });
       });
     },
-    /**缴费按钮*/
+    /**签到按钮*/
     signIn(row){
       console.log(row)
       this.reset();
@@ -425,21 +435,27 @@ export default {
         });
       });
     },
+    /**课程评价按钮*/
+    evaluate(row){
+      console.log(row)
+      this.reset();
+      const id = row.id
+      getStudying(id).then(response => {
+        this.form = response.data;
+        this.open = true;
+        this.title = "上传培训评价";
+      });
+    },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateStudying(this.form).then(response => {
-              this.$modal.msgSuccess("审批成功");
-              this.open = false;
+            evaluate(this.form).then(response => {
+              this.$modal.msgSuccess("上传评价成功");
+              this.reset();
               this.getList();
-            });
-          } else {
-            addStudying(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
+              this.open=false;
             });
           }
         }

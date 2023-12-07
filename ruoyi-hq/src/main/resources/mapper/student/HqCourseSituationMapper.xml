@@ -100,6 +100,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
+    <update id="evaluate" parameterType="HqCourseSituation">
+        update hq_course_situation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="evaluate != null">evaluate = #{evaluate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
     <delete id="deleteHqCourseSituationById" parameterType="Long">
         delete from hq_course_situation where id = #{id}
     </delete>

@@ -51,6 +51,14 @@ export function signIn(data) {
     data: data
   })
 }
+// 课程评价
+export function evaluate(data) {
+  return request({
+    url: '/studying/studying/evaluate',
+    method: 'put',
+    data: data
+  })
+}
 
 // 删除学员上课信息管理
 export function delStudying(id) {

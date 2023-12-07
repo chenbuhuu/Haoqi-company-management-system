@@ -106,6 +106,14 @@ public class HqCourseSituationController extends BaseController
         System.out.println(hqCourseSituation);
         return toAjax(hqCourseSituationService.sign(hqCourseSituation));
     }
+    @Log(title = "学员上课信息管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/evaluate")
+    public AjaxResult evaluate(@RequestBody HqCourseSituation hqCourseSituation)
+    {
+
+        System.out.println(hqCourseSituation);
+        return toAjax(hqCourseSituationService.evaluate(hqCourseSituation));
+    }
 
     /**
      * 删除学员上课信息管理
