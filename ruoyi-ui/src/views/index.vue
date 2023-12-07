@@ -1,9 +1,8 @@
 <template>
   <div class="app-container home">
-
+    <img class="zoomed-image" src="./hgd.jpg" >
   </div>
 </template>
-
 <script>
 export default {
   name: "Index",
@@ -81,6 +80,14 @@ export default {
       margin-inline-end: 0;
       padding-inline-start: 40px;
     }
+  }
+  .zoomed-image {
+    position: fixed;
+    top: -478px;
+    left: -700px;
+    transform: scale(0.5);
+    opacity: 0.4;
+
   }
 }
 </style>

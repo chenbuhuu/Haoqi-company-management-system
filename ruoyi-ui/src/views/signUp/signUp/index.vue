@@ -1,71 +1,84 @@
 <template>
   <div>
+    <div>
+      <h1 class="page-title">报名信息</h1>
+    <div class="form-container">
     <el-row :gutter="15">
       <el-form ref="courseSelectForm" :model="courseSelectData" :rules="rules" size="medium"
                label-width="100px">
-        <el-col :span="10">
+        <el-row :gutter="15">
+          <el-col :span="12">
           <el-form-item label="身份证号" prop="studentId">
             <el-input v-model="courseSelectData.studentId" placeholder="请输入您的身份证号" show-word-limit clearable
-                      prefix-icon='el-icon-postcard' :style="{width: '100%'}"></el-input>
+                      prefix-icon='el-icon-postcard' :style="{width: '90%'}"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="12">
           <el-form-item label="姓名" prop="studentName">
             <el-input v-model="courseSelectData.studentName" placeholder="请输入姓名" clearable
-                      prefix-icon='el-icon-user' :style="{width: '100%'}"></el-input>
+                      prefix-icon='el-icon-user' :style="{width: '80%'}"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        </el-row>
+        <el-row :gutter="15">
+          <el-col :span="12">
           <el-form-item label="手机号" prop="studentPhone">
             <el-input v-model="courseSelectData.studentPhone" placeholder="请输入手机号" :maxlength="11"
-                      show-word-limit clearable prefix-icon='el-icon-mobile' :style="{width: '100%'}"></el-input>
+                      show-word-limit clearable prefix-icon='el-icon-mobile' :style="{width: '90%'}"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="12">
           <el-form-item label="邮箱" prop="studentEmail">
             <el-input v-model="courseSelectData.studentEmail" placeholder="请输入邮箱" clearable
-                      prefix-icon='el-icon-chat-line-round' :style="{width: '100%'}"></el-input>
+                      prefix-icon='el-icon-chat-line-round' :style="{width: '80%'}"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        </el-row>
+        <el-row :gutter="15">
+          <el-col :span="12">
           <el-form-item label="学历" prop="education">
             <el-select v-model="courseSelectData.education" placeholder="请选择学历" clearable
-                       :style="{width: '100%'}">
+                       :style="{width: '90%'}">
               <el-option v-for="(item, index) in educationOptions" :key="index" :label="item.label"
                          :value="item.value" :disabled="item.disabled"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="12">
           <el-form-item label="单位" prop="unit">
             <el-input v-model="courseSelectData.unit" placeholder="若无所属请填‘个人’" clearable
-                      prefix-icon='el-icon-office-building' :style="{width: '100%'}"></el-input>
+                      prefix-icon='el-icon-office-building' :style="{width: '80%'}"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        </el-row>
+        <el-row :gutter="15">
+          <el-col :span="12">
           <el-form-item label="日期范围" prop="dateRange">
             <el-date-picker type="daterange" v-model="courseSelectData.dateRange" format="yyyy-MM-dd"
-                            value-format="yyyy-MM-dd" :style="{width: '100%'}" start-placeholder="开始日期"
+                            value-format="yyyy-MM-dd" :style="{width: '90%'}" start-placeholder="开始日期"
                             end-placeholder="结束日期" range-separator="至" clearable @change="handleDateRangeChange"></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="12">
           <el-form-item label="课程选择" prop="courseId">
             <el-select v-model="courseSelectData.courseId" placeholder="请选择课程" filterable clearable
-                       :style="{width: '100%'}">
+                       :style="{width: '80%'}">
               <el-option v-for="(item, index) in courseOptions" :key="index" :label="item.label"
                          :value="item.value" :disabled="item.disabled"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+        </el-row>
         <el-col :span="24">
-          <el-form-item size="large">
+          <el-form-item size="large" class="button-container">
             <el-button type="primary" @click="submitForm">提交</el-button>
             <el-button @click="resetForm">重置</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -206,4 +219,23 @@ export default {
 }
 
 </script>
-<style></style>
+<style>
+.page-title {
+  text-align: center;
+  margin-bottom: 1px;
+  font-size: 40px;
+}
+.form-container {
+  border: 20px solid #ccc;
+  padding: 200px;
+}
+.button-container {
+  margin-left: -140px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.label {
+  margin-right: 10px;
+}
+</style>
