@@ -173,7 +173,7 @@
       <el-table-column label="课程评价" align="center" prop="evaluate" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <div style="display: flex; align-items: center;">
+          <div style="display: flex; justify-content: center;">
             <el-button
               v-if="scope.row.registStatus == 0"
               size="mini"
@@ -181,8 +181,9 @@
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
               v-hasPermi="['studying:studying:edit']"
-            >审批</el-button></div>
-          <div style="display: flex; align-items: center;">
+            >审批
+            </el-button></div>
+          <div style="display: flex; justify-content: center;">
             <el-button
               v-if="scope.row.payment == 0"
               size="mini"
@@ -192,7 +193,7 @@
               v-hasPermi="['studying:studying:edit']"
             >缴费</el-button>
           </div>
-          <div style="display: flex; align-items: center;">
+          <div style="display: flex; justify-content: center;">
             <el-button
               v-if="scope.row.sign == 0"
               size="mini"
@@ -202,7 +203,7 @@
               v-hasPermi="['studying:studying:edit']"
             >签到</el-button>
           </div>
-          <div style="display: flex; align-items: center;">
+          <div style="display: flex;justify-content: center;">
             <el-button
               size="mini"
               type="text"
@@ -210,7 +211,7 @@
               @click="evaluate(scope.row)"
               v-hasPermi="['studying:studying:edit']"
             >课程评价</el-button></div>
-          <div style="display: flex; align-items: center;">
+          <div style="display: flex; justify-content: center;">
             <el-button
               size="mini"
               type="text"

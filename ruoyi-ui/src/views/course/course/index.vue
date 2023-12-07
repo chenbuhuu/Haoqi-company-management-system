@@ -41,7 +41,7 @@
                 v-model="queryParams.executor"
                 placeholder="请输入执行人"
                 clearable
-                style="width: 220px; margin-left: 30px;"
+                style="width: 240px; margin-left: 10px;"
                 @keyup.enter.native="handleQuery"
               />
             </el-form-item>

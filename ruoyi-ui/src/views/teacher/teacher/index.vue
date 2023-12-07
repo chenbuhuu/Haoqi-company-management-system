@@ -41,7 +41,7 @@
         <el-input
           v-model="queryParams.skilledCourse"
           placeholder="请输入擅长课程"
-          style="width: 260px"
+          style="width: 250px"
           clearable
           @keyup.enter.native="handleQuery"
         />

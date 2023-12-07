@@ -38,7 +38,7 @@
         />
       </el-form-item>
       <el-form-item label="学历" prop="education">
-        <el-select v-model="queryParams.education" placeholder="请选择学历" clearable style="width: 260px">
+        <el-select v-model="queryParams.education" placeholder="请选择学历" clearable style="width: 250px">
           <el-option
             v-for="dict in dict.type.hq_student_education"
             :key="dict.value"
