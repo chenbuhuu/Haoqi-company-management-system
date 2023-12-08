@@ -163,6 +163,9 @@
         <el-form-item label="课程单次费用" prop="cost">
           <el-input v-model="form.cost" placeholder="请输入课程单次费用" />
         </el-form-item>
+        <el-form-item label="执行人" prop="executor" v-hasPermi="['course:course:add']">
+          <el-input v-model="form.executor" placeholder="请输入执行人" />
+        </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
